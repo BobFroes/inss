@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: inss
+
+  messages:
+    basename: i18n/message
+    encoding: UTF-8
+
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  database:
+    driverClassName: org.postgresql.Driver
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/db_inss
+    username: postgres
+    password: postgres
+
+  flyway:
+    baseline-on-migrate: true

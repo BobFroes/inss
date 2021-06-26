@@ -1,0 +1,21 @@
+create table inss (
+    id uuid NOT NULL,
+    year character varying(4) not null,
+    until decimal(17,2) not null default 0,
+    percent decimal(5,2)  not null default 0,
+    from_second decimal(17,2) not null default 0,
+    until_second decimal(17,2) not null default 0,
+    percent_second decimal(5,2)  not null default 0,
+    from_third decimal(17,2) not null default 0,
+    until_third decimal(17,2) not null default 0,
+    percent_third decimal(5,2) not null default 0,
+    from_fourth decimal(17,2) not null default 0,
+    until_fourth decimal(17,2) not null default 0,
+    percent_fourth decimal(5,2) not null default 0,
+    is_current bool not null,
+    created_at timestamp default now(),
+    updated_at timestamp default now(),
+    deleted_at timestamp,
+    constraint inss_pkey primary key (id),
+    constraint inss_ukey unique (year)
+);
