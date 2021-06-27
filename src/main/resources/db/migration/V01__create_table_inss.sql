@@ -1,5 +1,5 @@
 create table inss (
-    id uuid NOT NULL,
+    id uuid not null,
     year character varying(4) not null,
     until decimal(17,2) not null default 0,
     percent decimal(5,2)  not null default 0,
