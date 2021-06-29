@@ -49,11 +49,11 @@ public class InssController {
     public ResponseEntity<InssResponse> retrieve(@PathVariable UUID id) {
         AtomicReference<ResponseEntity<InssResponse>> result = new AtomicReference<>();
 
-        var optionalVehicle = retrieveInssService.execute(id);
+        var optional = retrieveInssService.execute(id);
 
-        optionalVehicle.ifPresentOrElse(
-                vehicle -> {
-                    var response = InssResponse.from(vehicle);
+        optional.ifPresentOrElse(
+                inss -> {
+                    var response = InssResponse.from(inss);
                     result.set(ResponseEntity.ok(response));
                 },
                 () -> result.set(ResponseEntity.notFound().build())
