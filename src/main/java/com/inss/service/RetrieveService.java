@@ -1,22 +1,25 @@
 package com.inss.service;
 
+
 import com.inss.domain.Inss;
-import com.inss.repository.InssRepository;
+import com.inss.domain.InssRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
-public class SaveInssService {
+public class RetrieveService {
 
     private final InssRepository repository;
 
     @Autowired
-    public SaveInssService(InssRepository repository) {
+    public RetrieveService(InssRepository repository) {
         this.repository = repository;
     }
 
-    public Inss execute(Inss inss) {
-        return repository.save(inss);
+    public Optional<Inss> execute(UUID id) {
+        return repository.findById(id);
     }
-
 }

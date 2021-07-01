@@ -1,7 +1,7 @@
 package com.inss.service;
 
 import com.inss.domain.Inss;
-import com.inss.repository.InssRepository;
+import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class SaveInssServiceTest {
+class SaveServiceTest {
 
     Inss inss, withNegativeNumbers, withBigNumbers, nullable;
 
@@ -28,7 +28,7 @@ class SaveInssServiceTest {
     private InssRepository repository;
 
     @InjectMocks
-    private SaveInssService service;
+    private SaveService service;
 
     @Captor
     private ArgumentCaptor<Inss> captor;

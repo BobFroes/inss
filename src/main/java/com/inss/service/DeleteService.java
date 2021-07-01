@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.repository.InssRepository;
+import com.inss.domain.InssRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
-public class DeleteInssService {
+public class DeleteService {
 
     private final InssRepository repository;
 
     @Autowired
-    public DeleteInssService(InssRepository repository) {
+    public DeleteService(InssRepository repository) {
         this.repository = repository;
     }
 

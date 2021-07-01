@@ -3,9 +3,9 @@ package com.inss.http.controller;
 import com.inss.domain.Inss;
 import com.inss.http.request.InssRequest;
 import com.inss.http.response.InssResponse;
-import com.inss.service.SaveInssService;
-import com.inss.service.DeleteInssService;
-import com.inss.service.RetrieveInssService;
+import com.inss.service.SaveService;
+import com.inss.service.DeleteService;
+import com.inss.service.RetrieveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,22 +26,22 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequestMapping("/api/inss")
 public class InssController {
 
-    private final SaveInssService saveInssService;
-    private final RetrieveInssService retrieveInssService;
-    private final DeleteInssService deleteInssService;
+    private final SaveService saveService;
+    private final RetrieveService retrieveService;
+    private final DeleteService deleteService;
 
     @Autowired
-    public InssController(SaveInssService saveInssService, RetrieveInssService retrieveInssService,
-                          DeleteInssService deleteInssService) {
-        this.saveInssService = saveInssService;
-        this.retrieveInssService = retrieveInssService;
-        this.deleteInssService = deleteInssService;
+    public InssController(SaveService saveService, RetrieveService retrieveService,
+                          DeleteService deleteService) {
+        this.saveService = saveService;
+        this.retrieveService = retrieveService;
+        this.deleteService = deleteService;
     }
 
     @PostMapping
     public ResponseEntity<InssResponse> create(@RequestBody @Valid InssRequest request) {
         Inss inss = InssRequest.from(request);
-        InssResponse response = InssResponse.from(saveInssService.execute(inss));
+        InssResponse response = InssResponse.from(saveService.execute(inss));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -49,7 +49,7 @@ public class InssController {
     public ResponseEntity<InssResponse> retrieve(@PathVariable UUID id) {
         AtomicReference<ResponseEntity<InssResponse>> result = new AtomicReference<>();
 
-        var optional = retrieveInssService.execute(id);
+        var optional = retrieveService.execute(id);
 
         optional.ifPresentOrElse(
                 inss -> {
@@ -64,23 +64,23 @@ public class InssController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        var optional = retrieveInssService.execute(id);
+        var optional = retrieveService.execute(id);
 
         if (optional.isEmpty()) { return ResponseEntity.notFound().build(); }
 
-        deleteInssService.execute(id);
+        deleteService.execute(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<InssResponse> update(@PathVariable UUID id, @RequestBody @Valid InssRequest request) {
-        var optional = retrieveInssService.execute(id);
+        var optional = retrieveService.execute(id);
 
         if (optional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(InssResponse.from(saveInssService.execute(InssRequest.from(optional.get().getId(), request))));
+        return ResponseEntity.ok(InssResponse.from(saveService.execute(InssRequest.from(optional.get().getId(), request))));
     }
 
 }

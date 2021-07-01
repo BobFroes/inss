@@ -1,7 +1,7 @@
 package com.inss.service;
 
 import com.inss.domain.Inss;
-import com.inss.repository.InssRepository;
+import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RetrieveInssServiceTest {
+class RetrieveServiceTest {
 
     private Inss inss;
 
@@ -29,7 +29,7 @@ class RetrieveInssServiceTest {
     private InssRepository repository;
 
     @InjectMocks
-    private RetrieveInssService service;
+    private RetrieveService service;
 
     @BeforeEach
     public void setUp() {

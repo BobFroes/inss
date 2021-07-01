@@ -1,10 +1,10 @@
-package com.inss.repository;
+package com.inss.domain;
 
-import com.inss.domain.Inss;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface InssRepository extends JpaRepository<Inss, UUID> {
-
+    Optional<Inss> findByIsCurrentTrue();
 }

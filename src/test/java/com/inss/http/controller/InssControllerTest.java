@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.inss.domain.Inss;
 import com.inss.exception.HttpExceptionHandler;
 import com.inss.http.request.InssRequest;
-import com.inss.service.SaveInssService;
-import com.inss.service.DeleteInssService;
-import com.inss.service.RetrieveInssService;
+import com.inss.service.SaveService;
+import com.inss.service.DeleteService;
+import com.inss.service.RetrieveService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,13 +35,13 @@ class InssControllerTest {
     private Inss inss;
 
     @Mock
-    private SaveInssService saveInssService;
+    private SaveService saveService;
 
     @Mock
-    private RetrieveInssService retrieveInssService;
+    private RetrieveService retrieveService;
 
     @Mock
-    private DeleteInssService deleteInssService;
+    private DeleteService deleteService;
 
     @InjectMocks
     private InssController controller;
@@ -93,7 +93,7 @@ class InssControllerTest {
 
         Inss inss = InssRequest.from(request);
 
-        when(saveInssService.execute(any())).thenReturn(inss);
+        when(saveService.execute(any())).thenReturn(inss);
 
         this.mvc.perform(MockMvcRequestBuilders.post(URL)
                 .content(new Gson().toJson(request))
@@ -123,7 +123,7 @@ class InssControllerTest {
     @Test
     void it_should_retrieve_successfully() throws Exception {
 
-        when(retrieveInssService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
 
         this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
@@ -133,7 +133,7 @@ class InssControllerTest {
 
     @Test
     void it_should_throw_not_found_when_retrieve() throws Exception {
-        when(retrieveInssService.execute(any())).thenReturn(Optional.empty());
+        when(retrieveService.execute(any())).thenReturn(Optional.empty());
 
         this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
@@ -143,9 +143,9 @@ class InssControllerTest {
 
     @Test
     void it_should_delete_successfully() throws Exception {
-        when(retrieveInssService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
 
-        doNothing().when(deleteInssService).execute(any());
+        doNothing().when(deleteService).execute(any());
 
         this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
@@ -165,8 +165,8 @@ class InssControllerTest {
     @Test
     void it_should_update_successfully() throws Exception {
 
-        when(retrieveInssService.execute(any())).thenReturn(Optional.ofNullable(inss));
-        when(saveInssService.execute(any())).thenReturn(inss);
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(saveService.execute(any())).thenReturn(inss);
 
         this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+inss.getId())
                 .content(new Gson().toJson(request))
