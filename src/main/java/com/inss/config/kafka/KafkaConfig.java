@@ -14,7 +14,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic inssCalculate(){
-        return TopicBuilder.name(inssCalculate).partitions(3).replicas(1).build();
+        return TopicBuilder.name(inssCalculate).partitions(3).build();
     }
 
 }
