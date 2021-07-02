@@ -2,6 +2,7 @@ package com.inss.service;
 
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
+import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
 import com.inss.http.response.CalculateResponse;
@@ -15,12 +16,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -60,10 +61,7 @@ class CalculateServiceTest {
                 .isCurrent(Boolean.TRUE)
                 .build();
 
-        request = CalculateRequest.builder()
-                .startDate(LocalDate.now())
-                .endDate(LocalDate.now().plusMonths(1))
-                .build();
+        request = CalculateRequest.builder().build();
 
     }
 
@@ -248,11 +246,11 @@ class CalculateServiceTest {
     }
 
     @Test
-    void it_should_calculate_when_is_equal_until_fourth_limit() {
+    void it_should_calculate_when_is_above_fourth_limit() {
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("6433.57"))
+                        .salary(new BigDecimal("70000.00"))
                         .build()
         ));
 
@@ -265,4 +263,12 @@ class CalculateServiceTest {
         assertEquals( inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
 
+    @Test
+    void it_should_throw_calculate_when_not_found() {
+
+        when(repository.findByIsCurrentTrue()).thenReturn(Optional.empty());
+
+        assertThrows(InssNotFoundException.class, () -> service.execute(request));
+
+    }
 }

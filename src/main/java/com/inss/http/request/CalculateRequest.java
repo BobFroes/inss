@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -15,13 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class CalculateRequest {
 
-    @NotNull
-    private LocalDate startDate;
-
-    @NotNull
-    private LocalDate endDate;
-
-    @NotNull
     private List<EmployeeRequest> employees;
 
 }
