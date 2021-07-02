@@ -5,6 +5,17 @@ spring:
   application:
     name: inss
 
+  kafka:
+    topic:
+      inss-calculate: inss-calculate
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: inss-group
+
   messages:
     basename: i18n/message
     encoding: UTF-8
