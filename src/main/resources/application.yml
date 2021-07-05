@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8084
 
 spring:
   application:
@@ -8,6 +8,7 @@ spring:
   kafka:
     topic:
       inss-calculate: inss-calculate
+      inss-response: inss-response
     producer:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

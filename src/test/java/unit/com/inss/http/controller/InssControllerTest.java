@@ -1,12 +1,13 @@
 package com.inss.http.controller;
 
 import com.google.gson.Gson;
+import com.inss.builder.InssBuilder;
 import com.inss.domain.Inss;
 import com.inss.exception.HttpExceptionHandler;
 import com.inss.http.request.InssRequest;
-import com.inss.service.SaveService;
 import com.inss.service.DeleteService;
 import com.inss.service.RetrieveService;
+import com.inss.service.SaveService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -31,8 +30,8 @@ import static org.mockito.Mockito.when;
 class InssControllerTest {
 
     private final String URL = "/api/inss";
-    private InssRequest request, nullable;
-    private Inss inss;
+
+    private InssBuilder builder = new InssBuilder();
 
     @Mock
     private SaveService saveService;
@@ -51,52 +50,17 @@ class InssControllerTest {
     @BeforeEach
     public void init() {
         mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(HttpExceptionHandler.class).build();
-
-        request =  InssRequest.builder()
-                .year("2020")
-                .until(new BigDecimal("1100"))
-                .percent(new BigDecimal("7.5"))
-                .fromSecond(new BigDecimal("1100.1"))
-                .untilSecond(new BigDecimal("2203.48"))
-                .percentSecond(new BigDecimal("9"))
-                .fromThird(new BigDecimal("2203.49"))
-                .untilThird(new BigDecimal("3305.22"))
-                .percentThird(new BigDecimal("12"))
-                .fromFourth(new BigDecimal("3305.23"))
-                .untilFourth(new BigDecimal("6433.57"))
-                .percentFourth(new BigDecimal("14"))
-                .isCurrent(Boolean.TRUE)
-                .build();
-
-        inss = Inss.builder()
-                .id(UUID.randomUUID())
-                .year("2020")
-                .until(new BigDecimal("1100"))
-                .percent(new BigDecimal("7.5"))
-                .fromSecond(new BigDecimal("1100.1"))
-                .untilSecond(new BigDecimal("2203.48"))
-                .percentSecond(new BigDecimal("9"))
-                .fromThird(new BigDecimal("2203.49"))
-                .untilThird(new BigDecimal("3305.22"))
-                .percentThird(new BigDecimal("12"))
-                .fromFourth(new BigDecimal("3305.23"))
-                .untilFourth(new BigDecimal("6433.57"))
-                .percentFourth(new BigDecimal("14"))
-                .isCurrent(Boolean.TRUE)
-                .build();
-
-        nullable = InssRequest.builder().build();
     }
 
     @Test
     void it_should_create_successfully() throws Exception {
 
-        Inss inss = InssRequest.from(request);
+        Inss inss = InssRequest.from(builder.create());
 
         when(saveService.execute(any())).thenReturn(inss);
 
         this.mvc.perform(MockMvcRequestBuilders.post(URL)
-                .content(new Gson().toJson(request))
+                .content(new Gson().toJson(builder.create()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
@@ -106,7 +70,7 @@ class InssControllerTest {
     void it_should_throw_bad_request_exception_when_is_nullable() throws Exception {
 
         this.mvc.perform(MockMvcRequestBuilders.post(URL)
-                .content(new Gson().toJson(nullable))
+                .content(new Gson().toJson(builder.nullable()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
     }
@@ -123,9 +87,9 @@ class InssControllerTest {
     @Test
     void it_should_retrieve_successfully() throws Exception {
 
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
 
-        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
+        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+builder.get().getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -135,7 +99,7 @@ class InssControllerTest {
     void it_should_throw_not_found_when_retrieve() throws Exception {
         when(retrieveService.execute(any())).thenReturn(Optional.empty());
 
-        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
+        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+builder.get().getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
@@ -143,11 +107,11 @@ class InssControllerTest {
 
     @Test
     void it_should_delete_successfully() throws Exception {
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
 
         doNothing().when(deleteService).execute(any());
 
-        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+inss.getId())
+        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+builder.get().getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
@@ -156,7 +120,7 @@ class InssControllerTest {
     @Test
     void it_should_throw_not_found_when_deleted() throws Exception {
 
-        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+inss.getId())
+        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+builder.get().getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
@@ -165,11 +129,11 @@ class InssControllerTest {
     @Test
     void it_should_update_successfully() throws Exception {
 
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
-        when(saveService.execute(any())).thenReturn(inss);
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
+        when(saveService.execute(any())).thenReturn(builder.get());
 
-        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+inss.getId())
-                .content(new Gson().toJson(request))
+        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+builder.get().getId())
+                .content(new Gson().toJson(builder.get()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -178,8 +142,8 @@ class InssControllerTest {
     @Test
     void it_should_throw_not_found_when_updated() throws Exception {
 
-        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+inss.getId())
-                .content(new Gson().toJson(request))
+        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+builder.get().getId())
+                .content(new Gson().toJson(builder.get()))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
