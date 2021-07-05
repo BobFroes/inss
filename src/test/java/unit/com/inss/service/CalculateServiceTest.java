@@ -1,11 +1,11 @@
 package com.inss.service;
 
+import com.inss.builder.InssBuilder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
-import com.inss.http.response.CalculateResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,8 +29,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CalculateServiceTest {
 
-    private Inss inss;
     private CalculateRequest request;
+
+    private InssBuilder builder;
 
     @Mock
     private InssRepository repository;
@@ -39,34 +40,18 @@ class CalculateServiceTest {
     private CalculateService service;
 
     @Captor
-    private ArgumentCaptor<CalculateResponse> captor;
+    private ArgumentCaptor<com.inss.http.response.CalculateResponse> captor;
 
     @BeforeEach
     public void setUp() {
-
-        inss = Inss.builder()
-                .id(UUID.randomUUID())
-                .year("2020")
-                .until(new BigDecimal("1100"))
-                .percent(new BigDecimal("7.5"))
-                .fromSecond(new BigDecimal("1100.01"))
-                .untilSecond(new BigDecimal("2203.48"))
-                .percentSecond(new BigDecimal("9"))
-                .fromThird(new BigDecimal("2203.49"))
-                .untilThird(new BigDecimal("3305.22"))
-                .percentThird(new BigDecimal("12"))
-                .fromFourth(new BigDecimal("3305.23"))
-                .untilFourth(new BigDecimal("6433.57"))
-                .percentFourth(new BigDecimal("14"))
-                .isCurrent(Boolean.TRUE)
-                .build();
-
+        builder = new InssBuilder();
         request = CalculateRequest.builder().build();
-
     }
 
     @Test
     void it_should_calculate_when_is_between_first_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -80,11 +65,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercent(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercent(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_first_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -98,11 +85,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercent(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercent(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_between_second_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -116,11 +105,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_from_second_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -134,11 +125,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_until_second_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -152,11 +145,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_between_third_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -170,11 +165,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentThird(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_from_third_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -188,11 +185,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentThird(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_until_third_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -206,11 +205,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentThird(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_between_fourth_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -224,11 +225,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_equal_from_fourth_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -242,11 +245,13 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
 
     @Test
     void it_should_calculate_when_is_above_fourth_limit() {
+        Inss inss = builder.get();
+
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
@@ -260,7 +265,7 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByIsCurrentTrue();
 
-        assertEquals( inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
+        assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
 
     @Test

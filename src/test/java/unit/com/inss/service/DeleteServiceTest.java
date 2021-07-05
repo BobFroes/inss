@@ -1,5 +1,6 @@
 package com.inss.service;
 
+import com.inss.builder.InssBuilder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DeleteServiceTest {
 
-    private Inss inss;
+    private InssBuilder builder;
 
     @Mock
     private InssRepository repository;
@@ -37,30 +36,13 @@ class DeleteServiceTest {
 
     @BeforeEach
     public void setUp() {
-
-        inss = Inss
-                .builder()
-                .id(UUID.randomUUID())
-                .year("2020")
-                .until(new BigDecimal("1100"))
-                .percent(new BigDecimal("7.5"))
-                .fromSecond(new BigDecimal("1100.1"))
-                .untilSecond(new BigDecimal("2203.48"))
-                .percentSecond(new BigDecimal("9"))
-                .fromThird(new BigDecimal("2203.49"))
-                .untilThird(new BigDecimal("3305.22"))
-                .percentThird(new BigDecimal("12"))
-                .fromFourth(new BigDecimal("3305.23"))
-                .untilFourth(new BigDecimal("6433.57"))
-                .percentFourth(new BigDecimal("14"))
-                .isCurrent(Boolean.TRUE)
-                .build();
-
+        builder = new InssBuilder();
     }
-
 
     @Test
     void it_should_delete_when_success() {
+
+        Inss inss = builder.get();
 
         when(repository.findById(any())).thenReturn(Optional.of(inss));
 
@@ -74,6 +56,8 @@ class DeleteServiceTest {
 
     @Test
     void it_should_throw_not_found() {
+
+        Inss inss = builder.get();
 
         when(repository.findById(any())).thenReturn(Optional.empty());
 
