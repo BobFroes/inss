@@ -10,12 +10,8 @@ import java.util.UUID;
 @Service
 public class DeleteService {
 
-    private final InssRepository repository;
-
     @Autowired
-    public DeleteService(InssRepository repository) {
-        this.repository = repository;
-    }
+    private InssRepository repository;
 
     public void execute(UUID id) {
         repository.findById(id).ifPresent(inss -> {

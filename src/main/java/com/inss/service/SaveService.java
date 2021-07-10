@@ -8,12 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SaveService {
 
-    private final InssRepository repository;
-
     @Autowired
-    public SaveService(InssRepository repository) {
-        this.repository = repository;
-    }
+    private InssRepository repository;
 
     public Inss execute(Inss inss) {
         return repository.save(inss);

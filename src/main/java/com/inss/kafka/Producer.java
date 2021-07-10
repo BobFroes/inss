@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
 @Component
-public class KafkaSender {
+public class Producer {
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public ListenableFuture<SendResult<String, String>> execute(String topic, Object request) {
+    public ListenableFuture<SendResult<String, String>> send(String topic, Object request) {
 
         Message<String> message = MessageBuilder
                 .withPayload(new Gson().toJson(request))

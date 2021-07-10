@@ -47,6 +47,25 @@ public class InssBuilder {
                 .build();
     }
 
+    public Inss insert() {
+        return Inss
+                .builder()
+                .year("2020")
+                .until(new BigDecimal("1100"))
+                .percent(new BigDecimal("7.5"))
+                .fromSecond(new BigDecimal("1100.01"))
+                .untilSecond(new BigDecimal("2203.48"))
+                .percentSecond(new BigDecimal("9"))
+                .fromThird(new BigDecimal("2203.49"))
+                .untilThird(new BigDecimal("3305.22"))
+                .percentThird(new BigDecimal("12"))
+                .fromFourth(new BigDecimal("3305.23"))
+                .untilFourth(new BigDecimal("6433.57"))
+                .percentFourth(new BigDecimal("14"))
+                .isCurrent(Boolean.TRUE)
+                .build();
+    }
+
     public Inss withNegativeNumbers() {
         return Inss
                 .builder()

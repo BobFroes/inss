@@ -12,12 +12,8 @@ import java.util.UUID;
 @Service
 public class RetrieveService {
 
-    private final InssRepository repository;
-
     @Autowired
-    public RetrieveService(InssRepository repository) {
-        this.repository = repository;
-    }
+    private InssRepository repository;
 
     public Optional<Inss> execute(UUID id) {
         return repository.findById(id);

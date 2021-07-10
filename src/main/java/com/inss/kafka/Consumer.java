@@ -1,31 +1,27 @@
-package com.inss.consumer;
+package com.inss.kafka;
 
 import com.google.gson.Gson;
+import com.inss.common.constant.Topics;
 import com.inss.http.request.CalculateRequest;
-import com.inss.kafka.KafkaSender;
 import com.inss.service.CalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CalculateConsumer {
-
-    @Value("${spring.kafka.topic.inss-response}")
-    private String topicResponse;
+public class Consumer {
 
     @Autowired
     private CalculateService service;
 
     @Autowired
-    private KafkaSender sender;
+    private Producer producer;
 
-    @KafkaListener(topics = "${spring.kafka.topic.inss-calculate}")
-    public void consume(String topicRequest) {
+    @KafkaListener(topics = Topics.INSS_CALCULATE, groupId = "inss-group")
+    public void receive(String topicRequest) {
         var request = new Gson().fromJson(topicRequest, CalculateRequest.class);
         var response = service.execute(request);
-        sender.execute(topicResponse, response);
+        producer.send(Topics.INSS_RESPONSE, response);
     }
 
 }
