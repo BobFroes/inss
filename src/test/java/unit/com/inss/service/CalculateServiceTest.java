@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import com.inss.exception.InssNotFoundException;
@@ -32,7 +32,7 @@ class CalculateServiceTest {
 
     private CalculateRequest request;
 
-    private InssBuilder builder;
+    private Inss inss;
 
     @Mock
     private InssRepository repository;
@@ -45,13 +45,12 @@ class CalculateServiceTest {
 
     @BeforeEach
     public void setUp() {
-        builder = new InssBuilder();
+        inss = new Builder().create().get();
         request = CalculateRequest.builder().build();
     }
 
     @Test
     void it_should_calculate_when_is_between_first_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -71,7 +70,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_first_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -91,7 +89,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_between_second_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -111,7 +108,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_from_second_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -131,7 +127,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_until_second_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -151,7 +146,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_between_third_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -171,7 +165,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_from_third_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -191,7 +184,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_until_third_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -211,7 +203,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_between_fourth_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -231,7 +222,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_equal_from_fourth_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
@@ -251,7 +241,6 @@ class CalculateServiceTest {
 
     @Test
     void it_should_calculate_when_is_above_fourth_limit() {
-        Inss inss = builder.get();
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()

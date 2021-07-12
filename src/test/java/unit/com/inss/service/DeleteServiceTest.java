@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DeleteServiceTest {
 
-    private InssBuilder builder;
+    private Inss inss;
 
     @Mock
     private InssRepository repository;
@@ -36,13 +36,11 @@ class DeleteServiceTest {
 
     @BeforeEach
     public void setUp() {
-        builder = new InssBuilder();
+        inss = new Builder().create().get();
     }
 
     @Test
     void it_should_delete_when_success() {
-
-        Inss inss = builder.get();
 
         when(repository.findById(any())).thenReturn(Optional.of(inss));
 
@@ -56,8 +54,6 @@ class DeleteServiceTest {
 
     @Test
     void it_should_throw_not_found() {
-
-        Inss inss = builder.get();
 
         when(repository.findById(any())).thenReturn(Optional.empty());
 

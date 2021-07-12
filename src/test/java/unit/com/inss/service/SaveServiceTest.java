@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class SaveServiceTest {
 
-    private InssBuilder builder;
+    private Builder builder;
 
     @Mock
     private InssRepository repository;
@@ -33,12 +33,12 @@ class SaveServiceTest {
 
     @BeforeEach
     public void setUp() {
-        builder = new InssBuilder();
+        builder = new Builder();
     }
 
     @Test
     void it_should_create_when_valid() {
-        Inss inss = builder.get();
+        Inss inss = builder.create().get();
 
         service.execute(inss);
 
@@ -51,22 +51,22 @@ class SaveServiceTest {
     @Test
     void it_not_should_create_when_nullable() {
 
-        assertNull(service.execute(builder.nullable()));
+        assertNull(service.execute(null));
 
         verify(repository, times(1)).save(captor.capture());
 
-        assertEquals(captor.getValue(), builder.nullable());
+        assertEquals(captor.getValue(),null);
 
     }
 
     @Test
     void it_not_should_create_when_negative_values() {
-        assertNull(service.execute(builder.withNegativeNumbers()));
+        assertNull(service.execute(builder.withNegativeNumbers().get()));
     }
 
     @Test
     void it_not_should_create_when_big_numbers() {
-        assertNull(service.execute(builder.withBigNumbers()));
+        assertNull(service.execute(builder.withBigNumbers().get()));
     }
 
 }

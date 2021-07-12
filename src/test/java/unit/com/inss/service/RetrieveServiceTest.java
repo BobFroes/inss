@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.domain.InssRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RetrieveServiceTest {
 
-    private InssBuilder builder;
+    private Builder builder;
 
     @Mock
     private InssRepository repository;
@@ -32,12 +32,12 @@ class RetrieveServiceTest {
 
     @BeforeEach
     public void setUp() {
-        builder = new InssBuilder();
+        builder = new Builder();
     }
 
     @Test
     void it_should_retrieve_when_success() {
-        Inss inss = builder.get();
+        Inss inss = builder.create().get();
 
         when(repository.findById(any())).thenReturn(Optional.of(inss));
 
@@ -51,7 +51,7 @@ class RetrieveServiceTest {
 
     @Test
     void it_should_throw_not_found() {
-        Inss inss = builder.get();
+        Inss inss = builder.create().get();
 
         when(repository.findById(any())).thenReturn(null);
 

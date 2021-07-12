@@ -1,10 +1,9 @@
 package com.inss.http.controller;
 
 import com.google.gson.Gson;
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.exception.HttpExceptionHandler;
-import com.inss.http.request.InssRequest;
 import com.inss.service.DeleteService;
 import com.inss.service.RetrieveService;
 import com.inss.service.SaveService;
@@ -31,7 +30,7 @@ class InssControllerTest {
 
     private final String URL = "/api/inss";
 
-    private InssBuilder builder = new InssBuilder();
+    private Inss inss;
 
     @Mock
     private SaveService saveService;
@@ -50,17 +49,16 @@ class InssControllerTest {
     @BeforeEach
     public void init() {
         mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(HttpExceptionHandler.class).build();
+        inss = new Builder().create().get();
     }
 
     @Test
     void it_should_create_successfully() throws Exception {
 
-        Inss inss = InssRequest.from(builder.create());
-
         when(saveService.execute(any())).thenReturn(inss);
 
         this.mvc.perform(MockMvcRequestBuilders.post(URL)
-                .content(new Gson().toJson(builder.create()))
+                .content(new Gson().toJson(inss))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
@@ -70,7 +68,7 @@ class InssControllerTest {
     void it_should_throw_bad_request_exception_when_is_nullable() throws Exception {
 
         this.mvc.perform(MockMvcRequestBuilders.post(URL)
-                .content(new Gson().toJson(builder.nullable()))
+                .content(new Gson().toJson(null))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest()).andReturn();
     }
@@ -87,9 +85,9 @@ class InssControllerTest {
     @Test
     void it_should_retrieve_successfully() throws Exception {
 
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
 
-        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+builder.get().getId())
+        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -97,9 +95,10 @@ class InssControllerTest {
 
     @Test
     void it_should_throw_not_found_when_retrieve() throws Exception {
+
         when(retrieveService.execute(any())).thenReturn(Optional.empty());
 
-        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+builder.get().getId())
+        this.mvc.perform(MockMvcRequestBuilders.get(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
@@ -107,11 +106,12 @@ class InssControllerTest {
 
     @Test
     void it_should_delete_successfully() throws Exception {
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
+
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
 
         doNothing().when(deleteService).execute(any());
 
-        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+builder.get().getId())
+        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
@@ -120,7 +120,7 @@ class InssControllerTest {
     @Test
     void it_should_throw_not_found_when_deleted() throws Exception {
 
-        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+builder.get().getId())
+        this.mvc.perform(MockMvcRequestBuilders.delete(URL+"/"+inss.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
@@ -129,11 +129,11 @@ class InssControllerTest {
     @Test
     void it_should_update_successfully() throws Exception {
 
-        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(builder.get()));
-        when(saveService.execute(any())).thenReturn(builder.get());
+        when(retrieveService.execute(any())).thenReturn(Optional.ofNullable(inss));
+        when(saveService.execute(any())).thenReturn(inss);
 
-        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+builder.get().getId())
-                .content(new Gson().toJson(builder.get()))
+        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+inss.getId())
+                .content(new Gson().toJson(inss))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -141,9 +141,8 @@ class InssControllerTest {
 
     @Test
     void it_should_throw_not_found_when_updated() throws Exception {
-
-        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+builder.get().getId())
-                .content(new Gson().toJson(builder.get()))
+        this.mvc.perform(MockMvcRequestBuilders.put(URL+"/"+inss.getId())
+                .content(new Gson().toJson(inss))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 

@@ -1,11 +1,9 @@
 package com.inss.kafka;
 
 import com.google.gson.Gson;
-import com.inss.builder.CalculateBuilder;
-import com.inss.builder.InssBuilder;
+import com.inss.builder.Builder;
 import com.inss.common.constant.Topics;
 import com.inss.db.CustomPostgresContainer;
-import com.inss.domain.InssRepository;
 import com.inss.service.CalculateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +29,8 @@ class ConsumerIntegrationTest {
     @Container
     public static PostgreSQLContainer<CustomPostgresContainer> postgreSQLContainer = CustomPostgresContainer.getInstance();
 
-    private CalculateBuilder builder;
+    @Autowired
+    private Builder builder;
 
     @SpyBean
     private Consumer consumer;
@@ -42,20 +41,16 @@ class ConsumerIntegrationTest {
     @SpyBean
     private Producer producer;
 
-    @Autowired
-    private InssRepository repository;
-
     @BeforeEach
     void setUp() {
-        repository.save(new InssBuilder().get());
-        builder = new CalculateBuilder();
+       builder.save();
     }
 
     @Test
     void it_should_calculate_successfully() throws Exception {
 
         var request = builder.calculateRequest();
-        var response = builder.calculateResponse();
+        var response = builder.calculatedResponse();
 
         consumer.receive(new Gson().toJson(request));
 
