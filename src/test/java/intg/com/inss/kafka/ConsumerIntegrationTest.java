@@ -54,14 +54,12 @@ class ConsumerIntegrationTest {
     @Test
     void it_should_calculate_successfully() throws Exception {
 
-        var employees = builder.withEmployees();
+        var request = builder.withEmployees();
+        var response = builder.calculateResponse();
 
-        consumer.receive(new Gson().toJson(employees));
+        consumer.receive(new Gson().toJson(request));
 
-        verify(service, times(1)).execute(employees);
-
-        var response = service.execute(employees);
-
+        verify(service, times(1)).execute(request);;
         verify(producer, times(1)).send(Topics.INSS_RESPONSE, response);
 
     }
