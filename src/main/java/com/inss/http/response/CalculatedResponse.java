@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class CalculateResponse {
+public class CalculatedResponse {
 
     private List<EmployeeResponse> employees;
 

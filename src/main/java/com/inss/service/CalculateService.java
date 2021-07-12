@@ -3,6 +3,7 @@ package com.inss.service;
 import com.inss.domain.InssRepository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
+import com.inss.http.response.CalculatedResponse;
 import com.inss.http.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class CalculateService {
     @Autowired
     private InssRepository repository;
 
-    public com.inss.http.response.CalculateResponse execute(CalculateRequest request) {
-        var calculateResponse = com.inss.http.response.CalculateResponse.builder().employees(new ArrayList<>()).build();
+    public CalculatedResponse execute(CalculateRequest request) {
+        var calculateResponse = CalculatedResponse.builder().employees(new ArrayList<>()).build();
 
         repository.findByIsCurrentTrue().ifPresentOrElse(
                 inss -> {

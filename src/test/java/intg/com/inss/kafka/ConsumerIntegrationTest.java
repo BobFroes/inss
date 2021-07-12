@@ -54,7 +54,7 @@ class ConsumerIntegrationTest {
     @Test
     void it_should_calculate_successfully() throws Exception {
 
-        var request = builder.withEmployees();
+        var request = builder.calculateRequest();
         var response = builder.calculateResponse();
 
         consumer.receive(new Gson().toJson(request));

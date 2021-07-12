@@ -6,6 +6,7 @@ import com.inss.domain.InssRepository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
+import com.inss.http.response.CalculatedResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +41,7 @@ class CalculateServiceTest {
     private CalculateService service;
 
     @Captor
-    private ArgumentCaptor<com.inss.http.response.CalculateResponse> captor;
+    private ArgumentCaptor<CalculatedResponse> captor;
 
     @BeforeEach
     public void setUp() {
