@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -44,9 +43,6 @@ class ConsumerIntegrationTest {
     private Producer producer;
 
     @Autowired
-    private EmbeddedKafkaBroker embeddedKafkaBroker;
-
-    @Autowired
     private InssRepository repository;
 
     @BeforeEach
@@ -57,6 +53,7 @@ class ConsumerIntegrationTest {
 
     @Test
     void it_should_calculate_successfully() throws Exception {
+
         var employees = builder.withEmployees();
 
         consumer.receive(new Gson().toJson(employees));
