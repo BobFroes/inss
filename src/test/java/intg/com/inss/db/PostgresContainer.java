@@ -4,20 +4,20 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Objects;
 
-public class CustomPostgresContainer extends PostgreSQLContainer<CustomPostgresContainer> {
+public class PostgresContainer extends PostgreSQLContainer<PostgresContainer> {
 
     private static final String IMAGE_VERSION = "postgres:11.2";
 
-    private static CustomPostgresContainer container;
+    private static PostgresContainer container;
 
-    private CustomPostgresContainer() {
+    private PostgresContainer() {
         super(IMAGE_VERSION);
     }
 
-    public static CustomPostgresContainer getInstance() {
+    public static PostgresContainer getInstance() {
 
         if (Objects.isNull(container)) {
-            container = new CustomPostgresContainer();
+            container = new PostgresContainer();
         }
 
         return container;

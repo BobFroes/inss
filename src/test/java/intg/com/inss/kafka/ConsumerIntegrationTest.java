@@ -3,7 +3,7 @@ package com.inss.kafka;
 import com.google.gson.Gson;
 import com.inss.builder.Builder;
 import com.inss.common.constant.Topics;
-import com.inss.db.CustomPostgresContainer;
+import com.inss.db.PostgresContainer;
 import com.inss.service.CalculateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.verify;
 class ConsumerIntegrationTest {
 
     @Container
-    public static PostgreSQLContainer<CustomPostgresContainer> postgreSQLContainer = CustomPostgresContainer.getInstance();
+    public static PostgreSQLContainer<PostgresContainer> postgreSQLContainer = PostgresContainer.getInstance();
 
     @Autowired
     private Builder builder;

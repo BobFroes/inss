@@ -24,15 +24,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/api/inss")
-public class InssController {
+public class Controller {
 
     private final SaveService saveService;
     private final RetrieveService retrieveService;
     private final DeleteService deleteService;
 
     @Autowired
-    public InssController(SaveService saveService, RetrieveService retrieveService,
-                          DeleteService deleteService) {
+    public Controller(SaveService saveService, RetrieveService retrieveService,
+                      DeleteService deleteService) {
         this.saveService = saveService;
         this.retrieveService = retrieveService;
         this.deleteService = deleteService;

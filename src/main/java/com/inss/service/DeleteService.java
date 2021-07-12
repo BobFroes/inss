@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.domain.InssRepository;
+import com.inss.domain.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 public class DeleteService {
 
     @Autowired
-    private InssRepository repository;
+    private Repository repository;
 
     public void execute(UUID id) {
         repository.findById(id).ifPresent(inss -> {

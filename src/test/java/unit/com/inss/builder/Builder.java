@@ -1,7 +1,7 @@
 package com.inss.builder;
 
 import com.inss.domain.Inss;
-import com.inss.domain.InssRepository;
+import com.inss.domain.Repository;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
 import com.inss.http.response.CalculatedResponse;
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Builder {
 
     @Autowired
-    private InssRepository repository;
+    private Repository repository;
 
     private Inss inss;
 

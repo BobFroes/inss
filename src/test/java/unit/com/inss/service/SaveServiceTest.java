@@ -2,7 +2,7 @@ package com.inss.service;
 
 import com.inss.builder.Builder;
 import com.inss.domain.Inss;
-import com.inss.domain.InssRepository;
+import com.inss.domain.Repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ class SaveServiceTest {
     private Builder builder;
 
     @Mock
-    private InssRepository repository;
+    private Repository repository;
 
     @InjectMocks
     private SaveService service;

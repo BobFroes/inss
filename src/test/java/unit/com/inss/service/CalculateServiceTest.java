@@ -2,7 +2,7 @@ package com.inss.service;
 
 import com.inss.builder.Builder;
 import com.inss.domain.Inss;
-import com.inss.domain.InssRepository;
+import com.inss.domain.Repository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
@@ -35,7 +35,7 @@ class CalculateServiceTest {
     private Inss inss;
 
     @Mock
-    private InssRepository repository;
+    private Repository repository;
 
     @InjectMocks
     private CalculateService service;

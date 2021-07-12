@@ -1,6 +1,6 @@
 package com.inss.service;
 
-import com.inss.domain.InssRepository;
+import com.inss.domain.Repository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.response.CalculatedResponse;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CalculateService {
 
     @Autowired
-    private InssRepository repository;
+    private Repository repository;
 
     public CalculatedResponse execute(CalculateRequest request) {
         var calculateResponse = CalculatedResponse.builder().employees(new ArrayList<>()).build();

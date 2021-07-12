@@ -26,7 +26,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class InssControllerTest {
+class ControllerTest {
 
     private final String URL = "/api/inss";
 
@@ -42,7 +42,7 @@ class InssControllerTest {
     private DeleteService deleteService;
 
     @InjectMocks
-    private InssController controller;
+    private Controller controller;
 
     private MockMvc mvc;
 
