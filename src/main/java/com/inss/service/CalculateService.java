@@ -54,7 +54,7 @@ public class CalculateService {
                                     .divide(new BigDecimal(100))).setScale(2, RoundingMode.HALF_EVEN));
                             employeeResponse.setPercent(inss.getPercentThird());
 
-                        } // From R$ 3.305,23 until R$ 6.433,57 and above discounts 14%
+                        } // Above R$ 3.305,22 discounts 14%
                         else if ((employee.getSalary().compareTo(inss.getFromFourth()) == 0 ||
                                 employee.getSalary().compareTo(inss.getFromFourth()) == 1)) {
                             employeeResponse.setDiscount(employee.getSalary().multiply(inss.getPercentFourth()
