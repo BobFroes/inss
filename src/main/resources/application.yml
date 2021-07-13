@@ -39,4 +39,4 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/db_inss
     username: postgres
-    password: postgres
+    password: root
