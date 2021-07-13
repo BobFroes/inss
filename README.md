@@ -72,11 +72,6 @@
 	   }]
     }
 
-<p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
-<ul>
-    <li>Teste de unidade utilizando Mockito</li>
-    <li>Teste de integra&ccedil;&atilde;o utilizando Test Container (PostgreSQL) e @EmbebbedleKafka</li>
-</ul>
 <p>Para executar e testar o projeto, precisaremos executar via terminal (utilizo o linux) os containers docker do kafka e postgres localizados na pasta resources do projeto.</p>
 
 	docker-compose -f kafka-docker-compose.yml up -d
@@ -117,3 +112,8 @@
 
 	 {"year":"2021","employees":[{"id":"fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary":1100,"discount":82.50,"percent":7.50},{"id":"7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary":2000,"discount":180.00,"percent":9.00},{"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":3000,"discount":360.00,"percent":12.00},{"id":"048fe759-02ba-4e25-b19f-04c4c882d4d2","salary":7000,"discount":980.00,"percent":14.00}]}
     
+<p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
+<ul>
+    <li>Teste de unidade utilizando Mockito</li>
+    <li>Teste de integra&ccedil;&atilde;o utilizando Test Container (PostgreSQL) e @EmbebbedleKafka</li>
+</ul>
