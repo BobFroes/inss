@@ -4,7 +4,7 @@
     <tbody>
         <tr>
             <td style="width: 50.0000%;"><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'><strong>Sal&aacute;rio de contribui&ccedil;&atilde;o 2021</strong></span><strong><br></strong></td>
-            <td style="width: 50.0000%;"><strong>Al&iacute;quota</strong></td>
+            <td style="width: 50.0000%;"><strong>Desconto</strong></td>
         </tr>
         <tr>
             <td style="width: 50.0000%;"><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>At&eacute; R$ 1.100</span></td>
@@ -45,7 +45,7 @@
 	   }]
     }
 
-<p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service <span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>(CalculateService)&nbsp;</span>respons&aacute;vel por calcular todos os descontos de cada funcion&aacute;rio. Ao final do processamento da service, o Consumer ir&aacute; produzir uma lista de funcion&aacute;rios com seus respectivos descontos de inss para o suposto microsserviço (Rh Microservice) que solicitou o cálculo. </p>
+<p>A classe Consumer (pacote kafka do projeto) &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service <span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>(CalculateService)&nbsp;</span>respons&aacute;vel por calcular todos os descontos de cada funcion&aacute;rio. Ao final do processamento da service, o Consumer ir&aacute; produzir uma lista de funcion&aacute;rios com seus respectivos descontos de inss para o suposto microsserviço (Rh Microservice) que solicitou o cálculo. </p>
 
 	{
 	   "year": "2021", 
@@ -77,3 +77,43 @@
     <li>Teste de unidade utilizando Mockito</li>
     <li>Teste de integra&ccedil;&atilde;o utilizando Test Container (PostgreSQL) e @EmbebbedleKafka</li>
 </ul>
+<p>Para executar e testar o projeto, precisaremos executar via terminal (utilizo o linux) os containers docker do kafka e postgres localizados na pasta resources do projeto.</p>
+
+	docker-compose -f kafka-docker-compose.yml up -d
+	docker-compose -f postgres-docker-compose.yml up -d
+<p><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>Crie o banco de dados <em>db_inss</em> e logo em seguida execute o projeto.</span></p>
+<p>Utilizando o Postman fa&ccedil;a uma requisi&ccedil;&atilde;o do tipo POST <em>http://localhost:8084/api/inss</em>, passando no corpo o objeto json a seguir:</p>
+
+	{
+	   "year": "2021",
+	   "until": 1100,
+	   "percent": 7.50,
+	   "fromSecond": 1100.01,
+	   "untilSecond": 2203.48,
+	   "percentSecond": 9,
+	   "fromThird": 2203.49,
+	   "untilThird": 3305.22,
+	   "percentThird": 12,
+	   "fromFourth": 3305.23,
+	   "untilFourth": 6433.57,
+	   "percentFourth": 14
+	}
+    
+<p>&Eacute; esperado que retorne um status <em>201 created</em> e pronto, nossa base estar&aacute; populada para os c&aacute;lculos!</p>
+<p><strong>Vamos aos testes!</strong></p>
+<p>Abrindo um novo terminal, vamos entrar no container kafka digitando o comando a seguir:</p>
+
+	docker exec -it docker_kafka_1 bash
+<p>Vamos preparar nosso <strong>consumidor</strong> que ir&aacute; escutar a requisi&ccedil;&atilde;o no t&oacute;pico &quot;inss-response&quot;, digitando o seguinte comando e aperte enter:</p>  
+
+	kafka-console-consumer --bootstrap-server localhost:9092 --topic inss-response
+<p>Pronto nosso consumidor estará na escuta! No mesmo terminal, clique com o bot&atilde;o direito e selecione a op&ccedil;&atilde;o new tab, onde aparecer&aacute; uma nova aba. Neste momento iremos simular uma requisi&ccedil;&atilde;o externa, ou seja, outro microsservi&ccedil;o (Rh Microservice) produzindo uma mensagem com a lista de funcion&aacute;rios onde queremos que sejam calculados os descontos de inss. Para isso, vamos preparar nosso <strong>produtor</strong> que enviará nossa mensagem para o tópico "inss-calculate", digitando o seguinte comando e aperte enter:</p>
+
+	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate
+<p>No cursor do nosso producer (>) informe a lista de funcionários com seus respectivos salários e digite enter:</p>
+
+	 >{"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
+<p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos.</p>
+
+	 {"year":"2021","employees":[{"id":"fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary":1100,"discount":82.50,"percent":7.50},{"id":"7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary":2000,"discount":180.00,"percent":9.00},{"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":3000,"discount":360.00,"percent":12.00},{"id":"048fe759-02ba-4e25-b19f-04c4c882d4d2","salary":7000,"discount":980.00,"percent":14.00}]}
+    
