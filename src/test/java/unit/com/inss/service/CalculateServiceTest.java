@@ -23,6 +23,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -46,7 +47,7 @@ class CalculateServiceTest {
     @BeforeEach
     public void setUp() {
         inss = new Builder().create().get();
-        request = CalculateRequest.builder().build();
+        request = CalculateRequest.builder().year("2021").build();
     }
 
     @Test
@@ -59,11 +60,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercent(), response.getEmployees().get(0).getPercent());
     }
@@ -78,11 +79,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercent(), response.getEmployees().get(0).getPercent());
     }
@@ -97,11 +98,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
@@ -116,11 +117,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
@@ -135,11 +136,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentSecond(), response.getEmployees().get(0).getPercent());
     }
@@ -154,11 +155,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
@@ -173,11 +174,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
@@ -192,11 +193,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentThird(), response.getEmployees().get(0).getPercent());
     }
@@ -211,11 +212,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
@@ -230,11 +231,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
@@ -249,11 +250,11 @@ class CalculateServiceTest {
                         .build()
         ));
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.of(inss));
+        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
 
         var response = service.execute(request);
 
-        verify(repository, times(1)).findByIsCurrentTrue();
+        verify(repository, times(1)).findByYear(request.getYear());
 
         assertEquals(inss.getPercentFourth(), response.getEmployees().get(0).getPercent());
     }
@@ -261,7 +262,7 @@ class CalculateServiceTest {
     @Test
     void it_should_throw_calculate_when_not_found() {
 
-        when(repository.findByIsCurrentTrue()).thenReturn(Optional.empty());
+        when(repository.findByYear(any())).thenReturn(Optional.empty());
 
         assertThrows(InssNotFoundException.class, () -> service.execute(request));
 

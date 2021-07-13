@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CalculateRequest {
 
+    private String year;
     private List<EmployeeRequest> employees;
 
 }

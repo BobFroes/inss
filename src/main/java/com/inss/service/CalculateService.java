@@ -19,9 +19,10 @@ public class CalculateService {
     private Repository repository;
 
     public CalculatedResponse execute(CalculateRequest request) {
-        var calculateResponse = CalculatedResponse.builder().employees(new ArrayList<>()).build();
+        var calculateResponse = CalculatedResponse.builder().year(request.getYear())
+                .employees(new ArrayList<>()).build();
 
-        repository.findByIsCurrentTrue().ifPresentOrElse(
+        repository.findByYear(request.getYear()).ifPresentOrElse(
                 inss -> {
                     request.getEmployees().forEach(employee -> {
                         var employeeResponse = EmployeeResponse.builder().build();

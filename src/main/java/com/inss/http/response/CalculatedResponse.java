@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class CalculatedResponse {
 
+    private String year;
     private List<EmployeeResponse> employees;
 
 }

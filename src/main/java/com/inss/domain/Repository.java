@@ -6,5 +6,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface Repository extends JpaRepository<Inss, UUID> {
-    Optional<Inss> findByIsCurrentTrue();
+    Optional<Inss> findByYear(String year);
 }
