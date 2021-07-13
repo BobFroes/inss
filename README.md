@@ -69,3 +69,9 @@
 		   "percent": 14.00
 	   }]
     }
+
+<p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
+<ul>
+    <li>Teste de unidade utilizando Mockito</li>
+    <li>Teste de integra&ccedil;&atilde;o utilizando Test Container (PostgreSQL) e @EmbebbedleKafka</li>
+</ul>
