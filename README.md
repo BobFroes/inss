@@ -26,3 +26,20 @@
 </table>
 <p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Como exemplo, se uma pessoa ganha R$ 3.000,00, entrar&aacute; na terceira faixa e ter&aacute; um desconto de 12% resultando em R$ 360,00 reais.</span></p>
 <p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Suponhamos que um outro microsservi&ccedil;o (Rh Microservice) ir&aacute; enviar uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe consumidora (Consumer):</p>
+
+
+	{
+       "employees": [{
+		   "id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35",
+		   "salary": 1100
+	   }, {
+		   "id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7",
+		   "salary": 2000
+	   }, {
+		   "id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5",
+		   "salary": 3000
+	   }, {
+		   "id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2",
+		   "salary": 7000
+	   }]
+    }
