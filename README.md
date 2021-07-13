@@ -82,7 +82,7 @@
 	docker-compose -f kafka-docker-compose.yml up -d
 	docker-compose -f postgres-docker-compose.yml up -d
 <p><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>Crie o banco de dados <em>db_inss</em> e logo em seguida execute o projeto.</span></p>
-<p>Utilizando o Postman fa&ccedil;a uma requisi&ccedil;&atilde;o do tipo POST <em>http://localhost:8084/api/inss</em>, passando no corpo o objeto json a seguir:</p>
+<p>Utilizando o Postman, fa&ccedil;a uma requisi&ccedil;&atilde;o do tipo POST <em>http://localhost:8084/api/inss</em>, passando no corpo o objeto json a seguir:</p>
 
 	{
 	   "year": "2021",
