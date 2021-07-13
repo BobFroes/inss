@@ -43,3 +43,5 @@
 		   "salary": 7000
 	   }]
     }
+
+<p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service (CalculateService) respons&aacute;vel por calcular todos os desconto de cada funcion&aacute;rio.</p>
