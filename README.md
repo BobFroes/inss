@@ -44,4 +44,28 @@
 	   }]
     }
 
-<p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service (CalculateService) respons&aacute;vel por calcular todos os desconto de cada funcion&aacute;rio.</p>
+<p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service <span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>(CalculateService)&nbsp;</span>respons&aacute;vel por calcular todos os descontos de cada funcion&aacute;rio. Ao final do processamento da service o Consumer ir&aacute; produzir uma lista de funcion&aacute;rios com seus respectivos descontos de inss. </p>
+
+	{
+       "employees": [{
+		   "id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35",
+		   "salary": 1100
+		   "discount": 82.50
+		   "percent": 7.50
+	   }, {
+		   "id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7",
+		   "salary": 2000
+		   "discount": 180.00
+		   "percent": 9.00
+	   }, {
+		   "id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5",
+		   "salary": 3000
+		   "discount": 360.00
+		   "percent": 12.00
+	   }, {
+		   "id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2",
+		   "salary": 7000
+		   "discount": 980.00
+		   "percent": 14.00
+	   }]
+    }
