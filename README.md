@@ -102,7 +102,7 @@
 <p>Vamos preparar nosso <strong>consumidor</strong> que ir&aacute; escutar a requisi&ccedil;&atilde;o no t&oacute;pico &quot;inss-response&quot;, digitando o seguinte comando e aperte enter:</p>  
 
 	kafka-console-consumer --bootstrap-server localhost:9092 --topic inss-response
-<p>Pronto, nosso consumidor estará na escuta! No mesmo terminal, clique com o bot&atilde;o direito e selecione a op&ccedil;&atilde;o new tab, onde aparecer&aacute; uma nova aba. Neste momento iremos simular uma requisi&ccedil;&atilde;o externa, ou seja, outro microsservi&ccedil;o (Rh Microservice) produzindo uma mensagem com a lista de funcion&aacute;rios onde queremos que sejam calculados os descontos de inss. Para isso, vamos preparar nosso <strong>produtor</strong> que enviará nossa mensagem para o tópico "inss-calculate", digitando o seguinte comando e aperte enter:</p>
+<p>Pronto, nosso consumidor estará na escuta! No mesmo terminal, clique com o bot&atilde;o direito do mouse e selecione a op&ccedil;&atilde;o new tab, onde aparecer&aacute; uma nova aba. Neste momento iremos simular uma requisi&ccedil;&atilde;o externa, ou seja, outro microsservi&ccedil;o (Rh Microservice) produzindo uma mensagem com a lista de funcion&aacute;rios onde queremos que sejam calculados os descontos de inss. Para isso, vamos preparar nosso <strong>produtor</strong> que enviará nossa mensagem para o tópico "inss-calculate", digitando o seguinte comando e aperte enter:</p>
 
 	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate
 <p>No cursor do nosso producer (>) informe a lista de funcionários com seus respectivos salários e digite enter:</p>
