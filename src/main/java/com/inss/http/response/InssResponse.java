@@ -25,7 +25,6 @@ public class InssResponse {
     private BigDecimal fromFourth;
     private BigDecimal untilFourth;
     private BigDecimal percentFourth;
-    private Boolean isCurrent;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
@@ -45,7 +44,6 @@ public class InssResponse {
                 .fromFourth(inss.getFromFourth())
                 .untilFourth(inss.getUntilFourth())
                 .percentFourth(inss.getPercentFourth())
-                .isCurrent(inss.getIsCurrent())
                 .createdAt(inss.getCreatedAt())
                 .updatedAt(inss.getUpdatedAt())
                 .build();

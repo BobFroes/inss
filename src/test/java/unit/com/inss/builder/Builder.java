@@ -37,7 +37,6 @@ public class Builder {
                 .fromFourth(new BigDecimal("3305.23"))
                 .untilFourth(new BigDecimal("6433.57"))
                 .percentFourth(new BigDecimal("14"))
-                .isCurrent(Boolean.TRUE)
                 .build();
         return this;
     }
@@ -57,7 +56,6 @@ public class Builder {
                 .fromFourth(new BigDecimal("-3305.23"))
                 .untilFourth(new BigDecimal("-6433.57"))
                 .percentFourth(new BigDecimal("-14"))
-                .isCurrent(Boolean.TRUE)
                 .build();
         return this;
     }
@@ -77,7 +75,6 @@ public class Builder {
                 .fromFourth(new BigDecimal("9999999999999999.99"))
                 .untilFourth(new BigDecimal("9999999999999999.99"))
                 .percentFourth(new BigDecimal("9999.99"))
-                .isCurrent(Boolean.TRUE)
                 .build();
 
         return this;

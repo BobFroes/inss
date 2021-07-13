@@ -53,8 +53,6 @@ public class InssRequest {
     @NotNull
     private BigDecimal percentFourth;
 
-    @NotNull
-    private Boolean isCurrent;
 
     public static Inss from(InssRequest request) {
         return getInss(null, request);
@@ -79,7 +77,6 @@ public class InssRequest {
                 .fromFourth(request.getFromFourth())
                 .untilFourth(request.getUntilFourth())
                 .percentFourth(request.getPercentFourth())
-                .isCurrent(request.getIsCurrent())
                 .build();
     }
 }

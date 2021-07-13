@@ -67,9 +67,6 @@ public class Inss {
     @Column(nullable = false, name = "percent_fourth", precision = 2)
     private BigDecimal percentFourth;
 
-    @Column(nullable = false, name = "is_current")
-    private Boolean isCurrent;
-
     @CreatedDate
     @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;

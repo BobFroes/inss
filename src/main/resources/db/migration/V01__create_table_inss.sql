@@ -12,7 +12,6 @@ create table inss (
     from_fourth decimal(17,2) not null default 0,
     until_fourth decimal(17,2) not null default 0,
     percent_fourth decimal(5,2) not null default 0,
-    is_current bool not null,
     created_at timestamp default now(),
     updated_at timestamp default now(),
     deleted_at timestamp,
