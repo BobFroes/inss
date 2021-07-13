@@ -29,6 +29,7 @@
 
 
 	{
+	   "year": "2021", 
        "employees": [{
 		   "id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35",
 		   "salary": 1100
@@ -47,6 +48,7 @@
 <p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service <span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>(CalculateService)&nbsp;</span>respons&aacute;vel por calcular todos os descontos de cada funcion&aacute;rio. Ao final do processamento da service o Consumer ir&aacute; produzir uma lista de funcion&aacute;rios com seus respectivos descontos de inss para o suposto microsserviço (Rh Microservice) que solicitou o cálculo. </p>
 
 	{
+	   "year": "2021", 
        "employees": [{
 		   "id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35",
 		   "salary": 1100
