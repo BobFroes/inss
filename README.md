@@ -72,7 +72,7 @@
 	   }]
     }
 
-<p>Para executar e testar o projeto (Intellij IDE), precisaremos executar via terminal (utilizo o linux) os containers docker do kafka e postgres localizados na pasta resources do projeto.</p>
+<p>Para executar e testar o projeto (Intellij IDE), antes precisaremos executar via terminal (utilizo o linux) os containers docker do kafka e postgres localizados na pasta resources do projeto.</p>
 
 	docker-compose -f kafka-docker-compose.yml up -d
 	docker-compose -f postgres-docker-compose.yml up -d
