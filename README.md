@@ -4,7 +4,7 @@
     <tbody>
         <tr>
             <td style="width: 50.0000%;"><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'><strong>Sal&aacute;rio de contribui&ccedil;&atilde;o 2021</strong></span><strong><br></strong></td>
-            <td style="width: 50.0000%;"><strong>Desconto</strong></td>
+            <td style="width: 50.0000%;"><strong>Alíquota</strong></td>
         </tr>
         <tr>
             <td style="width: 50.0000%;"><span style='color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>At&eacute; R$ 1.100</span></td>
@@ -24,7 +24,15 @@
         </tr>
     </tbody>
 </table>
-<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Como exemplo, se uma pessoa ganha R$ 3.000,00, entrar&aacute; na terceira faixa e ter&aacute; um desconto de 12% resultando em R$ 360,00 reais.</span></p>
+<hr>
+<p style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px; line-height: 28px; margin-top: 0px; margin-bottom: 1rem; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Veja como fica agora o c&aacute;lculo para o mesmo sal&aacute;rio de R$ 3.000,00, que se encontra na 3&ordf; faixa:</p>
+<ul style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); margin-top: 0px; margin-bottom: 1rem; padding-left: 25px; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+    <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">1&ordf; faixa salarial</strong>: 1.100,00 x 0,075 = 82,50</li>
+    <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">2&ordf; faixa salarial</strong>: [2.203,48 &ndash; 1.100,00] x 0,09 = 1.103,48 x 0,09 = 99,31</li>
+    <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">Faixa que atinge o sal&aacute;rio</strong>: [3.000,00 &ndash; 2.203,48] x 0,12 = 796,52 x 0,12 = 95,58</li>
+    <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">Total a recolher</strong>: 95,58 + 99,31 + 82,50 = 277,39</li>
+</ul>
+<p><span style="color: rgb(48, 69, 92); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Com este resultado &eacute; poss&iacute;vel calcular a al&iacute;quota efetiva que se encontra em cerca de 9,25% (277,40 &divide; 3.000,00).</span></p>
 <p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Suponhamos que um outro microsservi&ccedil;o (Rh Microservice) ir&aacute; enviar uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe consumidora (Consumer):</p>
 
 
@@ -40,6 +48,9 @@
 		   "id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5",
 		   "salary": 3000
 	   }, {
+		   "id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3",
+		   "salary": 5000
+	   }, {
 		   "id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2",
 		   "salary": 7000
 	   }]
@@ -53,22 +64,27 @@
 		   "id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35",
 		   "salary": 1100
 		   "discount": 82.50
-		   "percent": 7.50
+		   "percent": "7.50%"
 	   }, {
 		   "id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7",
 		   "salary": 2000
-		   "discount": 180.00
-		   "percent": 9.00
+		   "discount": 163.50
+		   "percent": "8.18%"
 	   }, {
 		   "id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5",
 		   "salary": 3000
-		   "discount": 360.00
-		   "percent": 12.00
+		   "discount": 277.39
+		   "percent": "9.25%"
+	   }, {
+		   "id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3",
+		   "salary": 5000
+		   "discount": 551.29
+		   "percent": "11.03%"
 	   }, {
 		   "id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2",
 		   "salary": 7000
-		   "discount": 980.00
-		   "percent": 14.00
+		   "discount": 751.99
+		   "percent": "TETO"
 	   }]
     }
 
@@ -107,10 +123,10 @@
 	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate
 <p>No cursor do nosso producer (>) informe a lista de funcionários com seus respectivos salários e digite enter:</p>
 
-	 >{"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
+	 >{"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3","salary": 5000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
 <p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos. Nosso suposto microsserviço externo escutou no tópico "inss-response", recebeu sua lista de funcionários com os descontos e provavelmente irá gravar os registros em sua tabela contra-cheque.</p>
 
-	 {"year":"2021","employees":[{"id":"fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary":1100,"discount":82.50,"percent":7.50},{"id":"7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary":2000,"discount":180.00,"percent":9.00},{"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":3000,"discount":360.00,"percent":12.00},{"id":"048fe759-02ba-4e25-b19f-04c4c882d4d2","salary":7000,"discount":980.00,"percent":14.00}]}
+	 {"year":"2021","employees":[{"id":"fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary":1100,"discount":82.50,"percent":"7.50%"},{"id":"7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary":2000,"discount":163.50,"percent":"8.18%"},{"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":3000,"discount":277.39,"percent":"9.25%"}, {"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":5000,"discount":551.29,"percent":"11.03%"},{"id":"048fe759-02ba-4e25-b19f-04c4c882d4d2","salary":7000,"discount":751.99,"percent":"TETO"}]}
     
 <p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
 <ul>
