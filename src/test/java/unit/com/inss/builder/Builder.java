@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -101,6 +102,8 @@ public class Builder {
                 .salary(new BigDecimal(2000)).build());
         employees.add(EmployeeRequest.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db5"))
                 .salary(new BigDecimal(3000)).build());
+        employees.add(EmployeeRequest.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db3"))
+                .salary(new BigDecimal(5000)).build());
         employees.add(EmployeeRequest.builder().id(UUID.fromString("f048fe759-02ba-4e25-b19f-4c4c882d4d2"))
                 .salary(new BigDecimal(7000)).build());
 
@@ -114,20 +117,24 @@ public class Builder {
 
         employees.add(EmployeeResponse.builder().id(UUID.fromString("fa07de98-1d78-4b8a-9fb2-0308474d3c35"))
                 .salary(new BigDecimal(1100))
-                .discount(new BigDecimal(82.50).setScale(2))
-                .percent(new BigDecimal(7.50).setScale(2)).build());
+                .discount(new BigDecimal(82.50).setScale(2, RoundingMode.HALF_EVEN))
+                .percent("7.50%").build());
         employees.add(EmployeeResponse.builder().id(UUID.fromString("7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7"))
                 .salary(new BigDecimal(2000))
-                .discount(new BigDecimal(180).setScale(2))
-                .percent(new BigDecimal(9).setScale(2)).build());
+                .discount(new BigDecimal(163.50).setScale(2, RoundingMode.HALF_EVEN))
+                .percent("8.18%").build());
         employees.add(EmployeeResponse.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db5"))
                 .salary(new BigDecimal(3000))
-                .discount(new BigDecimal(360).setScale(2))
-                .percent(new BigDecimal(12).setScale(2)).build());
+                .discount(new BigDecimal(277.39).setScale(2, RoundingMode.HALF_EVEN))
+                .percent("9.25%").build());
+        employees.add(EmployeeResponse.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db3"))
+                .salary(new BigDecimal(5000))
+                .discount(new BigDecimal(551.29).setScale(2, RoundingMode.HALF_EVEN))
+                .percent("11.03%").build());
         employees.add(EmployeeResponse.builder().id(UUID.fromString("f048fe759-02ba-4e25-b19f-4c4c882d4d2"))
                 .salary(new BigDecimal(7000))
-                .discount(new BigDecimal(980).setScale(2))
-                .percent(new BigDecimal(14).setScale(2)).build());
+                .discount(new BigDecimal(751.99).setScale(2, RoundingMode.HALF_EVEN))
+                .percent("TETO").build());
 
         return CalculatedResponse.builder().year("2021").employees(employees).build();
 

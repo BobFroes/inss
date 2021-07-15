@@ -13,6 +13,6 @@ public class EmployeeResponse {
     private UUID id;
     private BigDecimal salary;
     private BigDecimal discount;
-    private BigDecimal percent;
+    private String percent;
 
 }
