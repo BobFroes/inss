@@ -33,7 +33,7 @@
     <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">Total a recolher</strong>: 95,58 + 99,31 + 82,50 = 277,39</li>
 </ul>
 <p><span style="color: rgb(48, 69, 92); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Com este resultado &eacute; poss&iacute;vel calcular a al&iacute;quota efetiva que se encontra em cerca de 9,25% (277,39 &divide; 3.000,00).</span></p>
-<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Vamos supor que um outro microsservi&ccedil;o (Rh Microservice) ir&aacute; enviar uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe Consumer (pacote kafka do projeto):</p>
+<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Vamos supor que um outro microsservi&ccedil;o (Rh Microservice) ir&aacute; enviar uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe Consumer (pacote kafka do projeto).</p>
 
 
 	{
