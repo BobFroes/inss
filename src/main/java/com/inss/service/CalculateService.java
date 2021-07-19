@@ -25,9 +25,9 @@ public class CalculateService {
 
         repository.findByYear(request.getYear()).ifPresentOrElse(
                 inss -> {
+                    var firstTrack = inss.getUntil().multiply(inss.getPercent().divide(new BigDecimal(100))).setScale(2);
                     request.getEmployees().forEach(employee -> {
                         var employeeResponse = EmployeeResponse.builder().build();
-                        var firstTrack = inss.getUntil().multiply(inss.getPercent().divide(new BigDecimal(100))).setScale(2);
                         var secondTrack = new BigDecimal(0);
                         var thirdTrack = new BigDecimal(0);
                         var fourthTrack = new BigDecimal(0);
