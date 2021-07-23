@@ -123,10 +123,10 @@
 	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate
 <p>No cursor do nosso producer (>) informe a lista de funcionários com seus respectivos salários e digite enter:</p>
 
-	 >{"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3","salary": 5000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
+	 {"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3","salary": 5000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
 <p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos. Nosso suposto microsserviço externo escutou no tópico "inss-response", recebeu sua lista de funcionários com os descontos e provavelmente irá gravar os registros em sua tabela contra-cheque.</p>
 
-	 {"year":"2021","employees":[{"id":"fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary":1100,"discount":82.50,"percent":"7.50%"},{"id":"7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary":2000,"discount":163.50,"percent":"8.18%"},{"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":3000,"discount":277.39,"percent":"9.25%"}, {"id":"df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary":5000,"discount":551.29,"percent":"11.03%"},{"id":"048fe759-02ba-4e25-b19f-04c4c882d4d2","salary":7000,"discount":751.99,"percent":"TETO"}]}
+![alt-text](https://github.com/BobFroes/inss/blob/master/src/kafka.gif?raw=true)
     
 <p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
 <ul>
