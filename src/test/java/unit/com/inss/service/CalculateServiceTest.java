@@ -6,12 +6,12 @@ import com.inss.domain.Repository;
 import com.inss.exception.InssNotFoundException;
 import com.inss.http.request.CalculateRequest;
 import com.inss.http.request.EmployeeRequest;
-import com.inss.http.response.CalculatedResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,22 +42,20 @@ class CalculateServiceTest {
     @InjectMocks
     private CalculateService service;
 
-    @Captor
-    private ArgumentCaptor<CalculatedResponse> captor;
-
     @BeforeEach
     public void setUp() {
         inss = new Builder().create().get();
         request = CalculateRequest.builder().year("2021").build();
     }
 
-    @Test
-    void it_should_calculate_when_is_between_first_limit() {
+    @ParameterizedTest
+    @ValueSource(strings = {"1000", "1100"})
+    void it_should_calculate_when_is_between_first_limit(String number) {
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("1000"))
+                        .salary(new BigDecimal(number))
                         .build()
         ));
 
@@ -70,13 +68,14 @@ class CalculateServiceTest {
         assertEquals("7.5%", response.getEmployees().get(0).getPercent());
     }
 
-    @Test
-    void it_should_calculate_when_is_equal_first_limit() {
+    @ParameterizedTest
+    @CsvSource({"1100.01, 82.50, 7.50%", "2000, 163.50, 8.18%", "2203.48, 181.81, 8.25%"})
+    void it_should_calculate_when_is_between_second_limit(String salary, String discount, String percent) {
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("1100"))
+                        .salary(new BigDecimal(salary))
                         .build()
         ));
 
@@ -86,16 +85,19 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByYear(request.getYear());
 
-        assertEquals("7.5%", response.getEmployees().get(0).getPercent());
+        assertEquals(new BigDecimal(discount).setScale(2, RoundingMode.HALF_EVEN)
+                , response.getEmployees().get(0).getDiscount());
+        assertEquals(percent, response.getEmployees().get(0).getPercent());
     }
 
-    @Test
-    void it_should_calculate_when_is_between_second_limit() {
+    @ParameterizedTest
+    @CsvSource({"2203.49, 181.81, 8.25%", "3000, 277.39, 9.25%", "3305.22, 314.02, 9.50%"})
+    void it_should_calculate_when_is_between_third_limit(String salary, String discount, String percent) {
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("2000"))
+                        .salary(new BigDecimal(salary))
                         .build()
         ));
 
@@ -105,18 +107,19 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByYear(request.getYear());
 
-        assertEquals(new BigDecimal(163.50).setScale(2, RoundingMode.HALF_EVEN)
+        assertEquals(new BigDecimal(discount).setScale(2, RoundingMode.HALF_EVEN)
                 , response.getEmployees().get(0).getDiscount());
-        assertEquals("8.18%", response.getEmployees().get(0).getPercent());
+        assertEquals(percent, response.getEmployees().get(0).getPercent());
     }
 
-    @Test
-    void it_should_calculate_when_is_equal_from_second_limit() {
+    @ParameterizedTest
+    @CsvSource({"3305.23, 314.02, 9.50%", "6433.57, 751.99, 11.69%"})
+    void it_should_calculate_when_is_between_fourth_limit(String salary, String discount, String percent) {
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("1100.01"))
+                        .salary(new BigDecimal(salary))
                         .build()
         ));
 
@@ -126,18 +129,19 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByYear(request.getYear());
 
-        assertEquals(new BigDecimal(82.50).setScale(2, RoundingMode.HALF_EVEN)
+        assertEquals(new BigDecimal(discount).setScale(2, RoundingMode.HALF_EVEN)
                 , response.getEmployees().get(0).getDiscount());
-        assertEquals("7.50%", response.getEmployees().get(0).getPercent());
+        assertEquals(percent, response.getEmployees().get(0).getPercent());
     }
 
-    @Test
-    void it_should_calculate_when_is_equal_until_second_limit() {
+    @ParameterizedTest
+    @CsvSource({"70000.00, 751.99, TETO", "10000, 751.99, TETO", "20000, 751.99, TETO"})
+    void it_should_calculate_when_is_above_fourth_limit(String salary, String discount, String percent) {
 
         request.setEmployees(Collections.singletonList(
                 EmployeeRequest.builder()
                         .id(UUID.randomUUID())
-                        .salary(new BigDecimal("2203.48"))
+                        .salary(new BigDecimal(salary))
                         .build()
         ));
 
@@ -147,157 +151,9 @@ class CalculateServiceTest {
 
         verify(repository, times(1)).findByYear(request.getYear());
 
-        assertEquals(new BigDecimal(181.81).setScale(2, RoundingMode.HALF_EVEN)
+        assertEquals(new BigDecimal(discount).setScale(2, RoundingMode.HALF_EVEN)
                 , response.getEmployees().get(0).getDiscount());
-        assertEquals("8.25%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_between_third_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("3000"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(277.39).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("9.25%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_equal_from_third_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("2203.49"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(181.81).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("8.25%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_equal_until_third_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("3305.22"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(314.02).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("9.50%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_between_fourth_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("3500"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(341.29).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("9.75%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_equal_from_fourth_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("3305.23"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(314.02).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("9.50%", response.getEmployees().get(0).getPercent());
-    }
-
-    @Test
-    void it_should_calculate_when_is_equal_until_fourth_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("6433.57"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(751.99).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("11.69%", response.getEmployees().get(0).getPercent());
-    }
-
-
-    @Test
-    void it_should_calculate_when_is_above_fourth_limit() {
-
-        request.setEmployees(Collections.singletonList(
-                EmployeeRequest.builder()
-                        .id(UUID.randomUUID())
-                        .salary(new BigDecimal("70000.00"))
-                        .build()
-        ));
-
-        when(repository.findByYear(any())).thenReturn(Optional.of(inss));
-
-        var response = service.execute(request);
-
-        verify(repository, times(1)).findByYear(request.getYear());
-
-        assertEquals(new BigDecimal(751.99).setScale(2, RoundingMode.HALF_EVEN)
-                , response.getEmployees().get(0).getDiscount());
-        assertEquals("TETO", response.getEmployees().get(0).getPercent());
+        assertEquals(percent, response.getEmployees().get(0).getPercent());
     }
 
     @Test
