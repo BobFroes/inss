@@ -22,8 +22,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -157,11 +157,12 @@ class CalculateServiceTest {
     }
 
     @Test
-    void it_should_throw_calculate_when_not_found() {
+    void it_should_throw_not_found() {
 
         when(repository.findByYear(any())).thenReturn(Optional.empty());
 
-        assertThrows(InssNotFoundException.class, () -> service.execute(request));
+        assertThatThrownBy(() -> service.execute(request)).isInstanceOf(InssNotFoundException.class)
+                .hasMessageContaining("Inss não encontrado");
 
     }
 }
