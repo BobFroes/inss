@@ -2,10 +2,10 @@ package com.inss.builder;
 
 import com.inss.domain.Inss;
 import com.inss.domain.Repository;
-import com.inss.http.request.CalculateRequest;
-import com.inss.http.request.EmployeeRequest;
-import com.inss.http.response.CalculatedResponse;
-import com.inss.http.response.EmployeeResponse;
+import com.inss.kafka.request.CalculateRequest;
+import com.inss.kafka.request.EmployeeRequest;
+import com.inss.kafka.response.CalculatedResponse;
+import com.inss.kafka.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

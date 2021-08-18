@@ -2,7 +2,7 @@ package com.inss.kafka;
 
 import com.google.gson.Gson;
 import com.inss.common.constant.Topics;
-import com.inss.http.request.CalculateRequest;
+import com.inss.kafka.request.CalculateRequest;
 import com.inss.service.CalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;

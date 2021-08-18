@@ -2,9 +2,9 @@ package com.inss.service;
 
 import com.inss.domain.Repository;
 import com.inss.exception.InssNotFoundException;
-import com.inss.http.request.CalculateRequest;
-import com.inss.http.response.CalculatedResponse;
-import com.inss.http.response.EmployeeResponse;
+import com.inss.kafka.request.CalculateRequest;
+import com.inss.kafka.response.CalculatedResponse;
+import com.inss.kafka.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
