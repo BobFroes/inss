@@ -1,4 +1,4 @@
-package com.inss.http.request;
+package com.inss.kafka.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

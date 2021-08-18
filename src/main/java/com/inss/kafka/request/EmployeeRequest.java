@@ -1,4 +1,4 @@
-package com.inss.http.response;
+package com.inss.kafka.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,11 +8,9 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class EmployeeResponse {
+public class EmployeeRequest {
 
     private UUID id;
     private BigDecimal salary;
-    private BigDecimal discount;
-    private String percent;
 
 }

@@ -1,4 +1,4 @@
-package com.inss.http.response;
+package com.inss.kafka.response;
 
 import lombok.Builder;
 import lombok.Data;
