@@ -114,7 +114,7 @@
 <p><strong>Vamos aos testes!</strong></p>
 <p>Abrindo um novo terminal, vamos entrar no container kafka digitando o comando a seguir:</p>
 
-	docker exec -it docker_kafka_1 bash
+	docker exec -it image_name bash
 <p>Vamos preparar nosso <strong>consumidor</strong> que ir&aacute; escutar a requisi&ccedil;&atilde;o no t&oacute;pico &quot;inss-response&quot;, digitando o seguinte comando e aperte enter:</p>  
 
 	kafka-console-consumer --bootstrap-server localhost:9092 --topic inss-response
