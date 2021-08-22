@@ -162,7 +162,7 @@ class CalculateServiceTest {
         when(repository.findByYear(any())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.execute(request)).isInstanceOf(NotFoundException.class)
-                .hasMessageContaining("Inss não encontrado");
+                .hasMessageContaining("Registro não encontrado.");
 
     }
 }

@@ -49,17 +49,6 @@ class SaveServiceTest {
     }
 
     @Test
-    void it_not_should_create_when_nullable() {
-
-        assertNull(service.execute(null));
-
-        verify(repository, times(1)).save(captor.capture());
-
-        assertEquals(captor.getValue(),null);
-
-    }
-
-    @Test
     void it_not_should_create_when_negative_values() {
         assertNull(service.execute(builder.withNegativeNumbers().get()));
     }
