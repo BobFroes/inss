@@ -1,4 +1,4 @@
-package com.inss.kafka.response;
+package com.inss.kafka.reply;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 @Builder
-public class CalculatedResponse {
+public class CalculatedReply {
 
     private String year;
-    private List<EmployeeResponse> employees;
+    private List<EmployeeReply> employees;
 
 }

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 @Testcontainers
 @DirtiesContext
 @SpringBootTest
-@EmbeddedKafka(topics = {Topics.INSS_CALCULATE, Topics.INSS_RESPONSE},
+@EmbeddedKafka(topics = {Topics.INSS_CALCULATE_REQUEST, Topics.INSS_CALCULATE_REPLY},
         partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 class ConsumerIntegrationTest {
 
@@ -50,12 +50,12 @@ class ConsumerIntegrationTest {
     void it_should_calculate_successfully() throws Exception {
 
         var request = builder.calculateRequest();
-        var response = builder.calculatedResponse();
+        var response = builder.calculatedReply();
 
         consumer.receive(new Gson().toJson(request));
 
         verify(service, times(1)).execute(request);;
-        verify(producer, times(1)).send(Topics.INSS_RESPONSE, response);
+        verify(producer, times(1)).send(Topics.INSS_CALCULATE_REPLY, response);
 
     }
 

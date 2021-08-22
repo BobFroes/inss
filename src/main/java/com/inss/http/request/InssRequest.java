@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Data
 @Builder
@@ -21,36 +22,47 @@ public class InssRequest {
     private String year;
 
     @NotNull
+    @Positive
     private BigDecimal until;
 
     @NotNull
+    @Positive
     private BigDecimal percent;
 
     @NotNull
+    @Positive
     private BigDecimal fromSecond;
 
     @NotNull
+    @Positive
     private BigDecimal untilSecond;
 
     @NotNull
+    @Positive
     private BigDecimal percentSecond;
 
     @NotNull
+    @Positive
     private BigDecimal fromThird;
 
     @NotNull
+    @Positive
     private BigDecimal untilThird;
 
     @NotNull
+    @Positive
     private BigDecimal percentThird;
 
     @NotNull
+    @Positive
     private BigDecimal fromFourth;
 
     @NotNull
+    @Positive
     private BigDecimal untilFourth;
 
     @NotNull
+    @Positive
     private BigDecimal percentFourth;
 
 

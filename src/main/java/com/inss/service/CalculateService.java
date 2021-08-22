@@ -1,10 +1,10 @@
 package com.inss.service;
 
 import com.inss.domain.Repository;
-import com.inss.exception.InssNotFoundException;
+import com.inss.exception.NotFoundException;
 import com.inss.kafka.request.CalculateRequest;
-import com.inss.kafka.response.CalculatedResponse;
-import com.inss.kafka.response.EmployeeResponse;
+import com.inss.kafka.reply.CalculatedReply;
+import com.inss.kafka.reply.EmployeeReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +19,15 @@ public class CalculateService {
     @Autowired
     private Repository repository;
 
-    public CalculatedResponse execute(CalculateRequest request) {
-        var calculateResponse = CalculatedResponse.builder().year(request.getYear())
+    public CalculatedReply execute(CalculateRequest request) {
+        var calculateReply = CalculatedReply.builder().year(request.getYear())
                 .employees(new ArrayList<>()).build();
 
         repository.findByYear(request.getYear()).ifPresentOrElse(
                 inss -> {
                     var firstTrack = inss.getUntil().multiply(inss.getPercent().divide(new BigDecimal(100))).setScale(2);
                     request.getEmployees().forEach(employee -> {
-                        var employeeResponse = EmployeeResponse.builder().build();
+                        var employeeResponse = EmployeeReply.builder().build();
                         var secondTrack = new BigDecimal(0);
                         var thirdTrack = new BigDecimal(0);
                         var fourthTrack = new BigDecimal(0);
@@ -110,14 +110,14 @@ public class CalculateService {
                             employeeResponse.setPercent("TETO");
                         }
 
-                        calculateResponse.getEmployees().add(employeeResponse);
+                        calculateReply.getEmployees().add(employeeResponse);
                     });
                 },
                 () -> {
-                    throw new InssNotFoundException();
+                    throw new NotFoundException();
                 });
 
-        return calculateResponse;
+        return calculateReply;
     }
 
 }

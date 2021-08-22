@@ -3,7 +3,7 @@ package com.inss.service;
 import com.inss.builder.Builder;
 import com.inss.domain.Inss;
 import com.inss.domain.Repository;
-import com.inss.exception.InssNotFoundException;
+import com.inss.exception.NotFoundException;
 import com.inss.kafka.request.CalculateRequest;
 import com.inss.kafka.request.EmployeeRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -161,7 +161,7 @@ class CalculateServiceTest {
 
         when(repository.findByYear(any())).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> service.execute(request)).isInstanceOf(InssNotFoundException.class)
+        assertThatThrownBy(() -> service.execute(request)).isInstanceOf(NotFoundException.class)
                 .hasMessageContaining("Inss não encontrado");
 
     }

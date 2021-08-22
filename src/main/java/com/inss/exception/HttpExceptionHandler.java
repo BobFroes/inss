@@ -1,6 +1,6 @@
 package com.inss.exception;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,23 +41,27 @@ public class HttpExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(InssNotFoundException.class)
-    public ResponseEntity<Object> handleInssNotFoundException(InssNotFoundException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> handleInssNotFoundException(NotFoundException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(AlreadyExistingException.class)
+    public ResponseEntity<Object> handleAlreadyExistingException(AlreadyExistingException exception) {
+        return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, exception.getMessage()));
+    }
+
     private ApiError createApiErrorArgumentNotValid(MethodArgumentNotValidException ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
-        apiError.setMessage(ex.getMessage());
+        apiError.setMessage("Um ou mais parâmetros são inválidos.");
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            ApiSubError subError = new ApiSubError();
+            ApiErrors subError = new ApiErrors();
             subError.setField(fieldError.getField());
-            subError.setRejectedValue(fieldError.getRejectedValue());
             subError.setMessage(messageSource.getMessage(fieldError, LocaleContextHolder.getLocale()));
-            apiError.subErrors.add(subError);
+            apiError.errors.add(subError);
         }
         return apiError;
     }
@@ -70,26 +73,23 @@ public class HttpExceptionHandler extends ResponseEntityExceptionHandler {
     @Data
     public static class ApiError {
         private HttpStatus status;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
-        private LocalDateTime timestamp;
         private String message;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private String debugMessage;
-        private List<ApiSubError> subErrors = new ArrayList<>();
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        private List<ApiErrors> errors = new ArrayList<>();
 
-        private ApiError() {
-            timestamp = LocalDateTime.now();
-        }
+        private ApiError() {}
 
         ApiError(HttpStatus status) {
             this();
             this.status = status;
         }
 
-        ApiError(HttpStatus status, Throwable ex) {
+        ApiError(HttpStatus status, String message) {
             this();
             this.status = status;
-            this.message = "Unexpected error";
-            this.debugMessage = ex.getLocalizedMessage();
+            this.message = message;
         }
 
         ApiError(HttpStatus status, String message, Throwable ex) {
@@ -102,9 +102,8 @@ public class HttpExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Data
     @NoArgsConstructor
-    class ApiSubError {
+    static class ApiErrors {
         private String field;
-        private Object rejectedValue;
         private String message;
     }
 

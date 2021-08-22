@@ -10,12 +10,12 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic inssCalculate() {
-        return TopicBuilder.name(Topics.INSS_CALCULATE).partitions(3).replicas(1).build();
+    public NewTopic inssCalculateRequest() {
+        return TopicBuilder.name(Topics.INSS_CALCULATE_REQUEST).partitions(3).replicas(1).build();
     }
 
     @Bean
-    public NewTopic inssResponse() {
-        return TopicBuilder.name(Topics.INSS_RESPONSE).partitions(3).replicas(1).build();
+    public NewTopic inssCalculateReply() {
+        return TopicBuilder.name(Topics.INSS_CALCULATE_REPLY).partitions(3).replicas(1).build();
     }
 }

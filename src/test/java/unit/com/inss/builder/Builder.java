@@ -4,8 +4,8 @@ import com.inss.domain.Inss;
 import com.inss.domain.Repository;
 import com.inss.kafka.request.CalculateRequest;
 import com.inss.kafka.request.EmployeeRequest;
-import com.inss.kafka.response.CalculatedResponse;
-import com.inss.kafka.response.EmployeeResponse;
+import com.inss.kafka.reply.CalculatedReply;
+import com.inss.kafka.reply.EmployeeReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -111,32 +111,32 @@ public class Builder {
 
     }
 
-    public CalculatedResponse calculatedResponse() {
+    public CalculatedReply calculatedReply() {
 
-        var employees = new ArrayList<EmployeeResponse>();
+        var employees = new ArrayList<EmployeeReply>();
 
-        employees.add(EmployeeResponse.builder().id(UUID.fromString("fa07de98-1d78-4b8a-9fb2-0308474d3c35"))
+        employees.add(EmployeeReply.builder().id(UUID.fromString("fa07de98-1d78-4b8a-9fb2-0308474d3c35"))
                 .salary(new BigDecimal(1100))
                 .discount(new BigDecimal(82.50).setScale(2, RoundingMode.HALF_EVEN))
                 .percent("7.50%").build());
-        employees.add(EmployeeResponse.builder().id(UUID.fromString("7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7"))
+        employees.add(EmployeeReply.builder().id(UUID.fromString("7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7"))
                 .salary(new BigDecimal(2000))
                 .discount(new BigDecimal(163.50).setScale(2, RoundingMode.HALF_EVEN))
                 .percent("8.18%").build());
-        employees.add(EmployeeResponse.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db5"))
+        employees.add(EmployeeReply.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db5"))
                 .salary(new BigDecimal(3000))
                 .discount(new BigDecimal(277.39).setScale(2, RoundingMode.HALF_EVEN))
                 .percent("9.25%").build());
-        employees.add(EmployeeResponse.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db3"))
+        employees.add(EmployeeReply.builder().id(UUID.fromString("df32e121-03a7-4af4-b5c5-02ffc08b3db3"))
                 .salary(new BigDecimal(5000))
                 .discount(new BigDecimal(551.29).setScale(2, RoundingMode.HALF_EVEN))
                 .percent("11.03%").build());
-        employees.add(EmployeeResponse.builder().id(UUID.fromString("f048fe759-02ba-4e25-b19f-4c4c882d4d2"))
+        employees.add(EmployeeReply.builder().id(UUID.fromString("f048fe759-02ba-4e25-b19f-4c4c882d4d2"))
                 .salary(new BigDecimal(7000))
                 .discount(new BigDecimal(751.99).setScale(2, RoundingMode.HALF_EVEN))
                 .percent("TETO").build());
 
-        return CalculatedResponse.builder().year("2021").employees(employees).build();
+        return CalculatedReply.builder().year("2021").employees(employees).build();
 
     }
 

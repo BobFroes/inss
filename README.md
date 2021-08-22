@@ -33,7 +33,7 @@
     <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">Total a recolher</strong>: 95,58 + 99,31 + 82,50 = 277,39</li>
 </ul>
 <p><span style="color: rgb(48, 69, 92); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Com este resultado &eacute; poss&iacute;vel calcular a al&iacute;quota efetiva que se encontra em cerca de 9,25% (277,39 &divide; 3.000,00).</span></p>
-<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Vamos supor que um outro microsservi&ccedil;o (Rh Microservice) ir&aacute; enviar uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe Consumer (pacote kafka do projeto).</p>
+<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Vamos supor que um outro microsservi&ccedil;o (Rh Microservice) irá <strong>produzir</strong> uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe Consumer (pacote kafka do projeto) do microsserviço Inss.</p>
 
 
 	{
@@ -115,16 +115,16 @@
 <p>Abrindo um novo terminal, vamos entrar no container kafka digitando o comando a seguir:</p>
 
 	docker exec -it image_name bash
-<p>Vamos preparar nosso <strong>consumidor</strong> que ir&aacute; escutar a requisi&ccedil;&atilde;o no t&oacute;pico &quot;inss-response&quot;, digitando o seguinte comando e aperte enter:</p>  
+<p>Vamos preparar nosso <strong>consumidor</strong> do microsserviço Rh que ir&aacute; escutar a requisi&ccedil;&atilde;o no t&oacute;pico &quot;inss-calculate-reply&quot;, digitando o seguinte comando e aperte enter:</p>  
 
-	kafka-console-consumer --bootstrap-server localhost:9092 --topic inss-response
-<p>Pronto, nosso consumidor estará na escuta! No mesmo terminal, clique com o bot&atilde;o direito do mouse e selecione a op&ccedil;&atilde;o new tab, onde aparecer&aacute; uma nova aba. Neste momento iremos simular uma requisi&ccedil;&atilde;o externa, ou seja, outro microsservi&ccedil;o (Rh Microservice) produzindo uma mensagem com a lista de funcion&aacute;rios onde queremos que sejam calculados os descontos de inss. Para isso, vamos preparar nosso <strong>produtor</strong> que enviará nossa mensagem para o tópico "inss-calculate", digitando o seguinte comando e aperte enter:</p>
+	kafka-console-consumer --bootstrap-server localhost:9092 --topic inss-calculate-reply
+<p>Pronto, nosso consumidor está na escuta! No mesmo terminal, clique com o bot&atilde;o direito do mouse e selecione a op&ccedil;&atilde;o new tab, onde aparecer&aacute; uma nova aba. Neste momento o microsserviço Rh <strong>produzirá</strong>strong> uma mensagem com a lista de funcion&aacute;rios onde queremos que sejam calculados os descontos de inss. Para isso, vamos preparar nosso <strong>produtor</strong> que enviará nossa mensagem para o tópico "inss-calculate-request", digitando o seguinte comando e aperte enter:</p>
 
-	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate
+	 kafka-console-producer --broker-list localhost:9092 --topic inss-calculate-request
 <p>No cursor do nosso producer (>) informe a lista de funcionários com seus respectivos salários e digite enter:</p>
 
 	 {"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3","salary": 5000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
-<p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos. Nosso suposto microsserviço externo escutou no tópico "inss-response", recebeu sua lista de funcionários com os descontos e provavelmente irá gravar os registros em sua tabela contra-cheque.</p>
+<p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos. Nosso microsserviço Rh escutou no tópico "inss-calculate-reply", recebeu sua lista de funcionários com os descontos e percentuais.</p>
 
 ![alt-text](https://github.com/BobFroes/inss/blob/master/src/kafka.gif?raw=true)
     

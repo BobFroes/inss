@@ -17,11 +17,11 @@ public class Consumer {
     @Autowired
     private Producer producer;
 
-    @KafkaListener(topics = Topics.INSS_CALCULATE, groupId = "inss-group")
+    @KafkaListener(topics = Topics.INSS_CALCULATE_REQUEST, groupId = "inss-group")
     public void receive(String topicRequest) {
         var request = new Gson().fromJson(topicRequest, CalculateRequest.class);
-        var response = service.execute(request);
-        producer.send(Topics.INSS_RESPONSE, response);
+        var reply = service.execute(request);
+        producer.send(Topics.INSS_CALCULATE_REPLY, reply);
     }
 
 }
