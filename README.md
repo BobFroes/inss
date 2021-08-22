@@ -126,7 +126,7 @@
 	 {"year": "2021", "employees": [{"id": "fa07de98-1d78-4b8a-9fb2-0308474d3c35","salary": 1100}, {"id": "7c1e1d02-0a0b-41c7-b5f1-929ec01e04d7","salary": 2000}, {"id": "df32e121-03a7-4af4-b5c5-02ffc08b3db5","salary": 3000}, {"id": "af32e121-03a7-4af4-b5c5-02ffc08b3db3","salary": 5000}, {"id": "f048fe759-02ba-4e25-b19f-4c4c882d4d2","salary": 7000}]}
 <p>Voltando para a aba do nosso <strong>consumidor</strong>, veremos o resultado esperado com os devidos c&aacute;lculos. Nosso microsserviço Rh escutou no tópico "inss-calculate-reply", recebeu sua lista de funcionários com os descontos e percentuais.</p>
 
-![alt-text](https://github.com/BobFroes/inss/blob/master/src/kafka.gif?raw=true)
+![alt-text](https://github.com/BobFroes/inss/blob/719743758ff26b9adb55ba199044ccda8df9b36d/kafka.gif?raw=true)
     
 <p>Foram desenvolvidos testes de unidade e de integra&ccedil;&atilde;o para este projeto</p>
 <ul>
