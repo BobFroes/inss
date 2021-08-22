@@ -1,4 +1,4 @@
-<p><strong>Microsservi&ccedil;o INSS</strong>&nbsp;</p>
+<h3>Microsservi&ccedil;o INSS</h3>
 <p style="text-align: justify;">Se voc&ecirc; &eacute; ou j&aacute; foi contratado em regime de CLT, pode ter percebido em seu contra-cheque alguns descontos de inss (seguridade social), irf (imposto de renda), sal&aacute;rio familia etc. Este projeto &eacute; um microsservi&ccedil;o respons&aacute;vel por calcular os descontos de inss de uma determinada lista de funcion&aacute;rios com seus respectivos sal&aacute;rios. A tabela a seguir ser&aacute; nossa refer&ecirc;ncia para os c&aacute;lculos.</p>
 <table style="width: 100%;">
     <tbody>
@@ -34,9 +34,11 @@
 </ul>
 <p><span style="color: rgb(48, 69, 92); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Com este resultado &eacute; poss&iacute;vel calcular a al&iacute;quota efetiva que se encontra em cerca de 9,25% (277,39 &divide; 3.000,00).</span></p>
 
+<h3>Comunicação entre microsserviços</h3>
+
 ![alt-text](https://github.com/BobFroes/inss/blob/325ddc3bda4123be28c66de782bddc55eb244ac1/MSS.png?raw=true)
 
-<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">O microsserviço RH irá produzir uma mensagem contendo a lista de funcionários com seus salários no tópico inss-calculate-request. O kafka ao receber a mensagem, vai dizer: “Hey! Chegou mensagem aqui no tópico inss-calculate-request, existe alguém que tenha interesse em <strong>consumir</strong>?”.  Como o microsserviço INSS assina o tópico de requisição, ele pegará a mensagem, processará e logo em seguida, <strong>produzirá</strong> uma nova lista de funcionários com seus salários,  discontos e percentuais no tópico de resposta  inss-calculate-reply. E lá vai o kafka novamente: “Opa! Chegou mensagem aqui no tópico inss-calculate-reply, existe alguém que tenha interesse em <strong>consumir</strong>?”. Eu! Responde o RH MS que assina o tópico de resposta e consumirá a lista de funcionários que foi <strong>produzida</strong> pelo microsserviço INSS. </p>
+<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">O microsserviço RH irá produzir uma mensagem contendo a lista de funcionários com seus salários no tópico <i>inss-calculate-request</i>. O kafka ao receber a mensagem, vai dizer: “Hey! Chegou mensagem aqui no tópico <i>inss-calculate-request</i>, existe alguém que tenha interesse em <strong>consumir</strong>?”.  Como o microsserviço INSS assina o tópico de requisição, ele pegará a mensagem, processará e logo em seguida, <strong>produzirá</strong> uma nova lista de funcionários com seus salários,  discontos e percentuais no tópico de resposta  <i>inss-calculate-reply</i>. E lá vai o kafka novamente: “Opa! Chegou mensagem aqui no tópico <i>inss-calculate-reply</i>, existe alguém que tenha interesse em <strong>consumir</strong>?”. Eu! Responde o RH MS que assina o tópico de resposta e consumirá a lista de funcionários que foi <strong>produzida</strong> pelo microsserviço INSS.</p>
 
 <p><strong>Mensagem de requisição produzida pelo RH MS</strong></p>
 
@@ -93,6 +95,10 @@
 	   }]
     }
 
+
+
+<h3>Bora testar!</h3>
+
 <p>Para executar e testar o projeto (Intellij IDE), antes precisaremos executar via terminal (utilizo o linux) os containers docker do kafka e postgres localizados na pasta resources do projeto.</p>
 
 	docker-compose -f kafka-docker-compose.yml up -d
@@ -116,7 +122,7 @@
 	}
     
 <p>&Eacute; esperado que retorne um status <em>201 created</em> e pronto, nossa tabela de inss estar&aacute; populada para os c&aacute;lculos!</p>
-<p><strong>Vamos aos testes!</strong></p>
+
 <p>Abrindo um novo terminal, vamos entrar no container kafka digitando o comando a seguir:</p>
 
 	docker exec -it image_name bash
