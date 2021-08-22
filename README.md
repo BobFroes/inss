@@ -33,7 +33,11 @@
     <li style="box-sizing: border-box; font-family: Lato; color: rgb(48, 69, 92); font-size: 16px;"><strong style="box-sizing: border-box; font-weight: bolder;">Total a recolher</strong>: 95,58 + 99,31 + 82,50 = 277,39</li>
 </ul>
 <p><span style="color: rgb(48, 69, 92); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Com este resultado &eacute; poss&iacute;vel calcular a al&iacute;quota efetiva que se encontra em cerca de 9,25% (277,39 &divide; 3.000,00).</span></p>
-<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">Vamos supor que um outro microsservi&ccedil;o (Rh Microservice) irá <strong>produzir</strong> uma mensagem contendo a lista de funcion&aacute;rios que ser&aacute; processada pela nossa classe Consumer (pacote kafka do projeto) do microsserviço Inss.</p>
+<p dir="ltr" style="line-height:1.38;text-align: justify;margin-top:0pt;margin-bottom:0pt;">O microsserviço RH irá produzir uma mensagem contendo a lista de funcionários com seus salários no tópico inss-calculate-request. O kafka ao receber a mensagem, vai dizer: “Hey! Chegou mensagem aqui no tópico inss-calculate-request, existe alguém que tenha interesse em <strong>consumir</strong>?”.  Como o microsserviço INSS assina o tópico de requisição, ele pegará a mensagem, processará e logo em seguida, <strong>produzirá</strong> uma nova lista de funcionários com seus salários,  discontos e percentuais no tópico de resposta  inss-calculate-reply. E lá vai o kafka novamente: “Opa! Chegou mensagem aqui no tópico inss-calculate-reply, existe alguém que tenha interesse em <strong>consumir</strong>?”. Eu! Responde o RH MS que assina o tópico de resposta e consumirá a lista de funcionários que foi <strong>produzida</strong> pelo microsserviço INSS. </p>
+
+![alt-text](https://github.com/BobFroes/inss/blob/325ddc3bda4123be28c66de782bddc55eb244ac1/MSS.png?raw=true)
+
+<p><strong>Mensagem de requisição produzida pelo RH MS</strong></p>
 
 
 	{
@@ -56,7 +60,7 @@
 	   }]
     }
 
-<p>A classe Consumer &eacute; respons&aacute;vel por converter a lista em um objeto de request (CalculateRequest) que ser&aacute; passado para uma service <span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>(CalculateService)&nbsp;</span>respons&aacute;vel por calcular todos os descontos de cada funcion&aacute;rio. Ao final do processamento da service, o Consumer ir&aacute; produzir uma lista de funcion&aacute;rios com seus respectivos descontos de inss para o suposto microsserviço (Rh Microservice) que solicitou o cálculo. </p>
+<p><strong>Mensagem de resposta produzida pelo INSS MS</strong></p>
 
 	{
 	   "year": "2021", 
